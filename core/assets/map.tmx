@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="16" tileheight="16" nextobjectid="1">
+ <tileset firstgid="1" name="Tile-set - Toen's Medieval Strategy (16x16) - v.1.0" tilewidth="16" tileheight="16" tilecount="364">
+  <image source="../../../../Tile-set - Toen's Medieval Strategy (16x16) - v.1.0.png" width="112" height="832"/>
+ </tileset>
+ <layer name="grass" width="50" height="50">
+  <data encoding="base64" compression="zlib">
+   eJyN1slu5DAMRVFP///NnUU1QJy6dLIwkpIlisMbfB7Hcf88z89z/Twnf+/Pc32e5/PuHO/Ocf75PPPcjPmM5+LM3Dvj3ePe/zHn2oxxstd6Tu6buZrTxW/rmWuzLyf3n+ybccxv1jb7P2u6ua/6Oe+Yc5rrs3b7OXO7jq5z9sma7+Vu+zLj/39n7TPfWd+s/eZv5VbYviK+fXNt1i5PZg1i4ok422ysu3gw9xVu7dPcW9wVe9ZdOLOueqzZvszYzk5e2/fC8MZL51u1yNnCr/iZfzeNUAfUMflXuFc/nWm9V1vNddszuVm8mH2vOVc+xVl/39xfWDyX8/ZEDKhvclB8zTzUghl7xjd/e3URo3iins11cblpihrg40zF3MRjebZ5qyt+J5QWmrO8Nf/Sw9njqunhfeGx7ixfdm6ubzxVZ/XYh3ilRYUF7zS3wvU2/3nPpgViSC0vjoqB8snNG5yf+q72uH/+dnZire4vvIjv0qQ5l7dvguJb+bIaWHpf+NXf5v/uMW9rmzmK+Zv91/E9g81btl4WFn+rb+uTnleaVNgtv9jwZ75q9nwnr8tvxO7EtTndEbe4UOfO5Xz5muves+mSGDUv8aS213eCeLff6q193eZjnlWzmlRaXTx446vzcf/sdeX/F98xr+37TYzI8fLs4rt1Fd/EXn0jidXixBNn5LT3qFvn8Z3fhou3b4ryV/lb+J85Vq7WsmG8+GXP9TuxsM1jxtu0xZ6VtuopUxv937XCa83bewoH8qLmMXtUfZ941E83/vstIW7+ghlnIxa9/yJeccx4G7asz7VNIzZO6Mf20VpqZs5hxiwtF+PlPWLd/W+aaQ5VQ/X3ibvLD8SLOZZHqQ93xPSR09X38/jO1f/1TzG14X72be515mKutGfT2fIP+yyOyj9dL494w54atb3T4+Ws909OuVets0fWblzXNs0p3d90sDimrjlrPfltzid77GFpgPk5D2NuXnESX/91BtYjh8qzC5Ni6+Guyv9Nn9URddl85n3qx+yz+rF5S/FJTdMXnbM+M2PIkTd/mzNUj8XLzEM8v2nDpg+bbjorvbPmVNqpFtf5iTE5Jpc2jFQs9coYN3vEv17x5svGcuYTm8ZXF0qPn7jHfEuz513eUVitGegJ5lBatulK6bWz2vRn67UYL045S+dZnNZfSk/LF6xLzXN2pZdq2nN8z6nOqGGTj3K49FFuqQ3lleqofbLH9lXPK4+qnpc/lAdsvajaS8uMJV43v5Y/VdPGv9IxcWgP9WRzkZ8bb8q75HXVZy5qmfgsPlYv1WtjbdrnbAunhZHSMDWlPLU8VOyZR71XK+VqaVl5j/pf/RT3ckjPK1+SlzXH0mb1svRIj5lx5Kb9nrmYl2vFSdfLs+f81b7yHXu5eZ3nNwxv+jjP6GW/eaS4LAzdrNX9m2/oD+WFxa9tvtZVmK2zznvOt3So/G3W+Q/07RiL
+  </data>
+ </layer>
+ <layer name="water" width="50" height="50">
+  <data encoding="base64" compression="zlib">
+   eJztllEKwzAMQ33/myTpIUegopoJg30NjffANO2XlFhxR1Wtu667RlsnsLV+8nH9TtpXuH7VrDwfW/OqR/s6PBPo+797yvssJR+zHh893/KUgPqqZ0SV4kNnMG29WiXQe0p+/D0BafV7S7lI87E1e669UubHKR8+S1LyoV5a9d5XfjYJaN/7PPesJ+B59n8RZT9lnrsPn3/DviUgrad/k7T7SnnWGfi9lTI/AAAAAAAAAAAAAAAA/o0XwlVsHQ==
+  </data>
+ </layer>
+ <layer name="mountains" width="50" height="50">
+  <data encoding="base64" compression="zlib">
+   eJzt2OEKwjAMRtH+X/P+r6sDA/EjG3O0nYF7oEzdbFPbSbLWAAAAUFl/t+3T8Ly4Dvva2FOB3OR7qYdWHfcGAAAA/k3FWiHj9WjlMbz+ie9H0znYhHGsfe+pGbXcJkdr4/eyjjHD3reF44zfasX9HfeR1/IV/1cqxgwAwGgrnmGveN5/N88dFddZbv/r/LNrvY8sf8nOneU5sX/9zlGcWf56FOdZDD25TnNJrV+u0JpEz+n42Vx9D2VraeF1Rj9/Aep6BH0=
+  </data>
+ </layer>
+ <layer name="cities" width="50" height="50">
+  <data encoding="base64" compression="zlib">
+   eJzt2d0KwyAMBeBcdt7oelEog73/Y86AoaGwwabWHTkfSHpR2kjmXydC9Lslt3uJyLQPKbd1dCIVYm6hxNvgXGpp/otg/652wa+DsXE+i5n6ciWdI5HHpNV9lWPORxRKjCXuoxKptAn2mutpLWaYV2ZZs4iIiFAFd42+t9hGJ9CAPzOc9+A9JNda0To85DjH9cxf9/bBvat1P6Q8O3y6sVI6Pf9ZYqt9svXjyvGNfIa377To5xStd8+xR0T/C+3b17s1Vufh6K4R2f9mM+xRiYiI6DsvoR4ERg==
+  </data>
+ </layer>
+ <layer name="trees" width="50" height="50">
+  <data encoding="base64" compression="zlib">
+   eJzNWcmuwzAIzMXp///x6+EhTUfsxmlHitosxmAwm69rBq/3td7XDf87uP8vpm3d87dZMI+38g5lqtBF3PCM3/G8VeB64zP8j3Kybl5wabCeRzxVITwseia2gPqw1ovX4qZ3HVR0s67PdWY6ml1bcyItkdnTU4TKOGtPrMtexxu+YVpsnzuo6kMb79Gw1lgbs6OPKtCuPD1k6TCm/ZKFCb8d0Ue6GdvrxCq0oxM2wDr2/B6Oqa5pFJsqyNhQ1hfsyLEL9LceXVlvTVdd7OztCCyXNjdiYn/iGp1AlBPsgvV/ap4IEmum1vKUPiJgTvdL8Hynxu80/5M2bOUq8nsyZzmpV9nrgkgOruc6tC3dd+IN6wBrM28/4p735vR0yzk914DrivngeMjrJXx6ubLHXyU3jXj07DDqLUQxn8dgbafJKPdWPRLpPgLXu1YtptHVZI9qPEYmZ+H33CviHoU1TqO702vSaFkQHa/rU+cWPL1r307XdNoc+FuFyJ7xpR0I7Sdqava/8kz7rkpXgL4wQ6cjt5XH766ht9flvZcvnUAnb7RsUXyWR69TT2ewo5sncmctJli8WKjELb4/se7d/LrSr+X7yLY6yNR/u/2HCp2ds5duLptBtTe3O5fmc/nsSLOTLG/ZPsdEHlTpeUR2znnNKZ/qzS+YOifcQZcHzom5l3eyn6PNMZGnVeIK5tzMA5+NaDFyIieqgm09OrvJ1FGTPW5B9UzS6ntn6FXtn+Vlf5qtFTEedHwC1n5Cx+pzaLYX9Q+z/cWoPvWg8fZSnoteM+dmVg4X8TQR2/He6uFk8mXNbrSzkK6fzfYKLb+n9U6ydvutPn8GWTme9tu/gq7cUzpHPz8R7zkPfArVXv0fgnMLaQ==
+  </data>
+ </layer>
+ <layer name="roads" width="50" height="50">
+  <data encoding="base64" compression="zlib">
+   eJzt0TEKgDAMQNGezUknXfT+R9FBQaR0UUkK70Ho0A75tBQAAIixRC/wER05LI+zJ+Nt5vMcQjd6r8d/qNGRi45cdOSiIxcd/1qP2R4zNd5n7aiptV0zNO62iGUBAAAgqR1Qyw3t
+  </data>
+ </layer>
+</map>

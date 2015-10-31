@@ -2,99 +2,172 @@ package org.redi;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
-import java.util.Iterator;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class GdxGameClass extends ApplicationAdapter {
 
-    Resources resources;
-    SpriteBatch batch;
+    private final int NUMBER_OF_BOXES = 6;
+    private final int MAP_WIDTH = 50, MAP_HEIGHT = 50;
 
-    Tank tank;
-	OrthographicCamera camera;
-	DynamicBody dynamicBody;
+	private OrthographicCamera camera;
+	private ShapeRenderer shapeRenderer;
 
-    World world;
-    Box2DDebugRenderer debugRenderer;
+    private List<Square> squareList = new ArrayList<Square>();
 
-    private Map map;
+    private int [][] mapArray;
 
-    Sprite mapSprite;
+    private SpriteBatch batch;
+    private BitmapFont font;
 
+    private Agent agent;
+
+    private int timeStep = 0;
 
     @Override
 	public void create () {
-        world = new World(new Vector2(0, 0), true);
-        debugRenderer = new Box2DDebugRenderer();
-		batch = new SpriteBatch();
+		shapeRenderer = new ShapeRenderer();
+
+        agent = new Agent(25, 25);
+
+        batch = new SpriteBatch();
+        font = new BitmapFont();
+        font.setColor(Color.BLUE);
 
 		float h = Gdx.graphics.getHeight();
 		float w = Gdx.graphics.getWidth();
 
-		camera = new OrthographicCamera(30, 30 * (h/w));
+		camera = new OrthographicCamera(60, 60 * (h/w));
 		camera.position.set(camera.viewportWidth / 2f, camera.viewportHeight / 2f, 0);
 		camera.zoom = 3;
 		camera.update();
 
 		Gdx.input.setInputProcessor(new MouseScroll(camera));
 
+        initializeMap();
+        populateEnvironment(NUMBER_OF_BOXES);
 
-        tank = new Tank(camera, world, new Vector2(0, 0));
-        tank.init();
+    }
 
-        map = new Map();
-        map.init();
+    private void debugMap() {
+
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+        shapeRenderer.setColor(Color.BLUE);
+        for(int i=0; i<MAP_WIDTH; i++){
+            for(int j=0; j<MAP_HEIGHT; j++){
+                if(mapArray[i][j] == 1){
+                    shapeRenderer.point(i,j, 0);
+                }
+                else{
+
+                }
+            }
+        }
+        shapeRenderer.end();
+    }
+
+    private void initializeMap() {
+        mapArray = new int[MAP_WIDTH][MAP_HEIGHT];
+
+        for(int i=0; i<MAP_WIDTH; i++){
+            for(int j=0; j<MAP_HEIGHT; j++){
+                mapArray[i][j] = 0;
+            }
+        }
     }
 
     @Override
     public void render () {
 
         camera.update();
-		batch.setProjectionMatrix(camera.combined);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        shapeRenderer.setProjectionMatrix(camera.combined);
 
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+        shapeRenderer.setColor(Color.WHITE);
+        agent.draw(shapeRenderer);
+        shapeRenderer.end();
 
-		batch.begin();
-        map.draw(batch);
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+        shapeRenderer.setColor(Color.RED);
+        squareList.stream().forEach(x -> x.draw(shapeRenderer));
+        shapeRenderer.end();
 
-        Array<Body> bodies = new Array<Body>();
-        world.getBodies(bodies);
+        drawBox(MAP_WIDTH, MAP_HEIGHT);
+        debugMap();
 
-
-        for(Body body : bodies) {
-            Sprite sprite = (Sprite) body.getUserData();
-
-            sprite.setX(body.getPosition().x);
-            sprite.setY(body.getPosition().y);
-            sprite.draw(batch);
+        if (Gdx.input.isKeyPressed(Input.Keys.LEFT) || Gdx.input.isKeyPressed(Input.Keys.A)) {
+            agent.move(Direction.LEFT);
         }
-        tank.handleInput();
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) || Gdx.input.isKeyPressed(Input.Keys.D)) {
+            agent.move(Direction.RIGHT);
+
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.DOWN) || Gdx.input.isKeyPressed(Input.Keys.S)) {
+            agent.move(Direction.DOWN);
+
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.UP) || Gdx.input.isKeyPressed(Input.Keys.W)) {
+            agent.move(Direction.UP);
+        }
+    }
+
+    private void drawBox(int map_width, int map_height) {
+        shapeRenderer.setColor(Color.GRAY);
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+        shapeRenderer.rect(0, 0, map_width, map_height);
+        shapeRenderer.end();
+    }
 
 
-        batch.end();
-        debugRenderer.render(world, camera.combined);
-        world.step(1 / 60f, 6, 2);
-	}
-
-
-	@Override
+    @Override
 	public void resize(int width, int height) {
 		camera.viewportWidth = 30f;
 		camera.viewportHeight = 30f * height/width;
 		camera.update();
 	}
+
+
+    private void populateEnvironment(int numberOfBoxes){
+        for(int i=0; i<numberOfBoxes; i++){
+            int randomWidth = ThreadLocalRandom.current().nextInt(0, 5);
+            int randomHeight = ThreadLocalRandom.current().nextInt(0, 5);
+
+            int randomX = ThreadLocalRandom.current().nextInt(0, MAP_WIDTH-randomWidth);
+            int randomY = ThreadLocalRandom.current().nextInt(0, MAP_HEIGHT-randomHeight);
+
+            System.out.println(i);
+
+            for(int j=0; j<randomWidth; j++){
+                for(int k=0; k<randomHeight; k++){
+                    if( mapArray[j+randomX][k+randomY] == 1){
+                        i--;
+                        System.out.println("next");
+                        continue;
+                    }
+                }
+            }
+
+            squareList.add(new Square(randomX, randomY, randomWidth, randomHeight));
+
+            for(int j=0; j<randomWidth; j++){
+                for(int k=0; k<randomHeight; k++){
+                    mapArray[j+randomX][k+randomY] = 1;
+                }
+            }
+        }
+    }
+
 
 
 }

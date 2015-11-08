@@ -1,8 +1,11 @@
 package org.redi;
 
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.sun.org.apache.xpath.internal.SourceTree;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.Arrays;
 
 /**
  * Created by redi on 2015-10-18.
@@ -21,6 +24,31 @@ public class Agent {
     public Agent(float x, float y) {
         this.y = y;
         this.x = x;
+    }
+
+
+    public int computeValueFunction(int [][] currentState, Action action){
+        int reward = 0;
+
+        if(action == Action.MOVE_DOWN){
+            if(currentState[x][y+1] == 1){
+
+            }
+        }
+        if(action == Action.MOVE_LEFT){
+
+        }
+        if(action == Action.MOVE_RIGHT){
+
+        }
+        if(action == Action.MOVE_UP){
+
+        }
+
+        System.out.println("Moving " + action + " in position [" + x + "][" + y + "], equals " +  reward);
+
+
+        return reward;
     }
 
     public Action chooseAction (int [][] environment){

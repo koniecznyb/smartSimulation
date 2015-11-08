@@ -3,6 +3,7 @@ package org.redi;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.ai.steer.behaviors.Evade;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -29,7 +30,8 @@ public class GdxGameClass extends ApplicationAdapter {
 
     private Agent agent;
 
-    private int timeStep = 0;
+    private int timeStep = 0, renderTimer = 0;
+
 
     @Override
 	public void create () {
@@ -94,6 +96,15 @@ public class GdxGameClass extends ApplicationAdapter {
 
         shapeRenderer.setProjectionMatrix(camera.combined);
 
+        renderTimer++;
+
+        if(renderTimer % 60 == 0){
+
+            agent.computeValueFunction(Environment.getInstance(), Action.MOVE_DOWN);
+            timeStep++;
+            renderTimer = 1;
+        }
+
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.setColor(Color.WHITE);
         agent.draw(shapeRenderer);
@@ -113,15 +124,15 @@ public class GdxGameClass extends ApplicationAdapter {
         }
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) || Gdx.input.isKeyPressed(Input.Keys.D)) {
             agent.move(Direction.RIGHT, Gdx.graphics.getDeltaTime());
-
         }
         if (Gdx.input.isKeyPressed(Input.Keys.DOWN) || Gdx.input.isKeyPressed(Input.Keys.S)) {
             agent.move(Direction.DOWN, Gdx.graphics.getDeltaTime());
-
         }
         if (Gdx.input.isKeyPressed(Input.Keys.UP) || Gdx.input.isKeyPressed(Input.Keys.W)) {
             agent.move(Direction.UP, Gdx.graphics.getDeltaTime());
         }
+
+
     }
 
     private void drawBox(int map_width, int map_height) {

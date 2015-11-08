@@ -24,8 +24,6 @@ public class GdxGameClass extends ApplicationAdapter {
 
     private List<Square> squareList = new ArrayList<Square>();
 
-    private int [][] mapArray;
-
     private SpriteBatch batch;
     private BitmapFont font;
 
@@ -37,7 +35,7 @@ public class GdxGameClass extends ApplicationAdapter {
 	public void create () {
 		shapeRenderer = new ShapeRenderer();
 
-        agent = new Agent(25, 25);
+        agent = new Agent(20f, 20f);
 
         batch = new SpriteBatch();
         font = new BitmapFont();
@@ -62,9 +60,12 @@ public class GdxGameClass extends ApplicationAdapter {
 
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.setColor(Color.BLUE);
+
+        int [][] environment = Environment.getInstance();
+
         for(int i=0; i<MAP_WIDTH; i++){
             for(int j=0; j<MAP_HEIGHT; j++){
-                if(mapArray[i][j] == 1){
+                if(environment[i][j] == 1){
                     shapeRenderer.point(i,j, 0);
                 }
                 else{
@@ -76,11 +77,11 @@ public class GdxGameClass extends ApplicationAdapter {
     }
 
     private void initializeMap() {
-        mapArray = new int[MAP_WIDTH][MAP_HEIGHT];
+        int [][] environment = Environment.getInstance();
 
         for(int i=0; i<MAP_WIDTH; i++){
             for(int j=0; j<MAP_HEIGHT; j++){
-                mapArray[i][j] = 0;
+                environment[i][j] = 0;
             }
         }
     }
@@ -101,24 +102,25 @@ public class GdxGameClass extends ApplicationAdapter {
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.setColor(Color.RED);
         squareList.stream().forEach(x -> x.draw(shapeRenderer));
+        squareList.stream().forEach(x -> x.applyMovement(Gdx.graphics.getDeltaTime()));
         shapeRenderer.end();
 
         drawBox(MAP_WIDTH, MAP_HEIGHT);
         debugMap();
 
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT) || Gdx.input.isKeyPressed(Input.Keys.A)) {
-            agent.move(Direction.LEFT);
+            agent.move(Direction.LEFT, Gdx.graphics.getDeltaTime());
         }
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) || Gdx.input.isKeyPressed(Input.Keys.D)) {
-            agent.move(Direction.RIGHT);
+            agent.move(Direction.RIGHT, Gdx.graphics.getDeltaTime());
 
         }
         if (Gdx.input.isKeyPressed(Input.Keys.DOWN) || Gdx.input.isKeyPressed(Input.Keys.S)) {
-            agent.move(Direction.DOWN);
+            agent.move(Direction.DOWN, Gdx.graphics.getDeltaTime());
 
         }
         if (Gdx.input.isKeyPressed(Input.Keys.UP) || Gdx.input.isKeyPressed(Input.Keys.W)) {
-            agent.move(Direction.UP);
+            agent.move(Direction.UP, Gdx.graphics.getDeltaTime());
         }
     }
 
@@ -140,19 +142,18 @@ public class GdxGameClass extends ApplicationAdapter {
 
     private void populateEnvironment(int numberOfBoxes){
         for(int i=0; i<numberOfBoxes; i++){
-            int randomWidth = ThreadLocalRandom.current().nextInt(0, 5);
-            int randomHeight = ThreadLocalRandom.current().nextInt(0, 5);
+            int randomWidth = ThreadLocalRandom.current().nextInt(1, 5);
+            int randomHeight = ThreadLocalRandom.current().nextInt(1, 5);
 
-            int randomX = ThreadLocalRandom.current().nextInt(0, MAP_WIDTH-randomWidth);
-            int randomY = ThreadLocalRandom.current().nextInt(0, MAP_HEIGHT-randomHeight);
+            int randomX = ThreadLocalRandom.current().nextInt(1, MAP_WIDTH-randomWidth);
+            int randomY = ThreadLocalRandom.current().nextInt(1, MAP_HEIGHT-randomHeight);
 
-            System.out.println(i);
+            int [][] environment = Environment.getInstance();
 
             for(int j=0; j<randomWidth; j++){
                 for(int k=0; k<randomHeight; k++){
-                    if( mapArray[j+randomX][k+randomY] == 1){
+                    if( environment[j+randomX][k+randomY] == 1){
                         i--;
-                        System.out.println("next");
                         continue;
                     }
                 }
@@ -162,7 +163,7 @@ public class GdxGameClass extends ApplicationAdapter {
 
             for(int j=0; j<randomWidth; j++){
                 for(int k=0; k<randomHeight; k++){
-                    mapArray[j+randomX][k+randomY] = 1;
+                    environment[j+randomX][k+randomY] = 1;
                 }
             }
         }

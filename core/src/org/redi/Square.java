@@ -1,11 +1,15 @@
 package org.redi;
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
+import lombok.ToString;
+
+import static com.badlogic.gdx.math.MathUtils.sin;
 
 /**
  * Created by redi on 2015-10-17.
  */
+@ToString
 public class Square {
 
     private int x,y;
@@ -21,6 +25,11 @@ public class Square {
     public void draw(final ShapeRenderer shapeRenderer){
 
         shapeRenderer.rect(x , y, width, height);
+
+    }
+
+    public void applyMovement(float deltaTime) {
+// TODO: 2015-11-08 Movement of environment 
 
     }
 }

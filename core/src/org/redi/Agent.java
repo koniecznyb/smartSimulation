@@ -1,15 +1,24 @@
 package org.redi;
 
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Created by redi on 2015-10-18.
  */
+@Getter
+@Setter
 public class Agent {
 
-    private int x, y, width = 1, height = 1;
+    private float x, y;
+    private int width = 1;
+    private int height = 1;
+    private float speedPerSecond = 5;
 
-    public Agent(int y, int x) {
+    private float fitness = 0;
+
+    public Agent(float x, float y) {
         this.y = y;
         this.x = x;
     }
@@ -23,51 +32,26 @@ public class Agent {
         shapeRenderer.rect(x, y, width, height);
     }
 
-    public void move(Direction direction){
+    public void move(Direction direction, float deltaTime){
         if(direction == Direction.UP){
-            y++;
+            y = y + (speedPerSecond * deltaTime);
         }
         if(direction == Direction.DOWN){
-            y--;
+            y = y - (speedPerSecond * deltaTime);
         }
         if(direction == Direction.LEFT){
-            x--;
+            x = x - (speedPerSecond * deltaTime);
         }
         if(direction == Direction.RIGHT){
-            x++;
+            x = x + (speedPerSecond * deltaTime);
         }
     }
 
-
-    public int getX() {
-        return x;
+    public void increaseFitness(float amount){
+        fitness += amount;
+    }
+    public void decreaseFitness(float amount){
+        fitness -= amount;
     }
 
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    public int getY() {
-        return y;
-    }
-
-    public void setY(int y) {
-        this.y = y;
-    }
-
-    public int getWidth() {
-        return width;
-    }
-
-    public void setWidth(int width) {
-        this.width = width;
-    }
-
-    public int getHeight() {
-        return height;
-    }
-
-    public void setHeight(int height) {
-        this.height = height;
-    }
 }

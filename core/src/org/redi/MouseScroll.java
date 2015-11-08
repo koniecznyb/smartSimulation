@@ -1,5 +1,6 @@
 package org.redi;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.MathUtils;
@@ -47,7 +48,8 @@ public class MouseScroll implements InputProcessor {
 
     @Override
     public boolean mouseMoved(int screenX, int screenY) {
-        return false;
+//        System.out.println("X: " + Gdx.input.getX() + ", Y: " + Gdx.input.getY());
+        return true;
     }
 
     @Override

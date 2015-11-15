@@ -10,19 +10,12 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
-
 public class GdxGameClass extends ApplicationAdapter {
 
-    private final int NUMBER_OF_BOXES = 15;
     private final int MAP_WIDTH = 50, MAP_HEIGHT = 50;
 
 	private OrthographicCamera camera;
 	private ShapeRenderer shapeRenderer;
-
-    private List<Square> squareList = new ArrayList<Square>();
 
     private SpriteBatch batch;
     private BitmapFont font;
@@ -32,10 +25,13 @@ public class GdxGameClass extends ApplicationAdapter {
     private int timeStep = 0, renderTimer = 0, reward = 0;
     private Action prevAction, nextAction;
 
+    private Environment environment;
+
     @Override
 	public void create () {
 		shapeRenderer = new ShapeRenderer();
 
+        environment = Environment.getInstance();
         agent = new Agent(20, 20);
 
         batch = new SpriteBatch();
@@ -52,40 +48,11 @@ public class GdxGameClass extends ApplicationAdapter {
 
 		Gdx.input.setInputProcessor(new MouseScroll(camera));
 
-        initializeMap();
-        populateEnvironment(NUMBER_OF_BOXES);
-
+        environment.initializeMap();
+        environment.populateEnvironment();
     }
 
-    private void debugMap() {
 
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        shapeRenderer.setColor(Color.BLUE);
-
-        Environment.MAP_FIELD[][] environment = Environment.getInstance();
-
-        for(int i=0; i<MAP_WIDTH; i++){
-            for(int j=0; j<MAP_HEIGHT; j++){
-                if(environment[i][j] == Environment.MAP_FIELD.OBSTACLE){
-                    shapeRenderer.point(i,j, 0);
-                }
-                else{
-
-                }
-            }
-        }
-        shapeRenderer.end();
-    }
-
-    private void initializeMap() {
-        Environment.MAP_FIELD[][] environment = Environment.getInstance();
-
-        for(int i=0; i<MAP_WIDTH; i++){
-            for(int j=0; j<MAP_HEIGHT; j++){
-                environment[i][j] = Environment.MAP_FIELD.EMPTY;
-            }
-        }
-    }
 
     @Override
     public void render () {
@@ -113,7 +80,7 @@ public class GdxGameClass extends ApplicationAdapter {
             }
 
             agent.move(nextAction, Gdx.graphics.getDeltaTime());
-            reward += agent.computeValueFunction(Environment.getInstance(), nextAction);
+            reward += agent.computeValueFunction(Environment.getInstance().getEnvironmentState(), nextAction);
             timeStep++;
             renderTimer = 1;
         }
@@ -125,9 +92,15 @@ public class GdxGameClass extends ApplicationAdapter {
 
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.setColor(Color.RED);
-        squareList.stream().forEach(x -> x.draw(shapeRenderer));
-        squareList.stream().forEach(x -> x.applyMovement(Gdx.graphics.getDeltaTime()));
+        environment.getObstacleList().stream().forEach(x -> x.draw(shapeRenderer));
+        environment.getObstacleList().stream().forEach(x -> x.applyMovement(Gdx.graphics.getDeltaTime()));
         shapeRenderer.end();
+
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+        shapeRenderer.setColor(Color.BLUE);
+        environment.getPrizeList().stream().forEach(x -> x.draw(shapeRenderer));
+        shapeRenderer.end();
+
 
         drawBox(MAP_WIDTH, MAP_HEIGHT);
 //        debugMap();
@@ -171,34 +144,26 @@ public class GdxGameClass extends ApplicationAdapter {
 	}
 
 
-    private void populateEnvironment(int numberOfBoxes){
-        for(int i=0; i<numberOfBoxes; i++){
-            int randomWidth = ThreadLocalRandom.current().nextInt(1, 5);
-            int randomHeight = ThreadLocalRandom.current().nextInt(1, 5);
+    private void debugMap() {
 
-            int randomX = ThreadLocalRandom.current().nextInt(1, MAP_WIDTH-randomWidth);
-            int randomY = ThreadLocalRandom.current().nextInt(1, MAP_HEIGHT-randomHeight);
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+        shapeRenderer.setColor(Color.BLUE);
 
-            Environment.MAP_FIELD[][] environment = Environment.getInstance();
+        Environment.MAP_FIELD[][] environment = Environment.getInstance().getEnvironmentState();
 
-            for(int j=0; j<randomWidth; j++){
-                for(int k=0; k<randomHeight; k++){
-                    if( environment[j+randomX][k+randomY] == Environment.MAP_FIELD.OBSTACLE){
-                        i--;
-                        continue;
-                    }
+        for(int i=0; i<MAP_WIDTH; i++){
+            for(int j=0; j<MAP_HEIGHT; j++){
+                if(environment[i][j] == Environment.MAP_FIELD.OBSTACLE){
+                    shapeRenderer.point(i,j, 0);
                 }
-            }
+                else{
 
-            squareList.add(new Square(randomX, randomY, randomWidth, randomHeight));
-
-            for(int j=0; j<randomWidth; j++){
-                for(int k=0; k<randomHeight; k++){
-                    environment[j+randomX][k+randomY] = Environment.MAP_FIELD.EMPTY;
                 }
             }
         }
+        shapeRenderer.end();
     }
+
 
 
 

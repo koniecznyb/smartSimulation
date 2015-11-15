@@ -109,7 +109,7 @@ public class GdxGameClass extends ApplicationAdapter {
                 nextAction = Action.randomAction();
             }
             else {
-                nextAction = ;
+//                nextAction = ;
             }
 
             agent.move(nextAction, Gdx.graphics.getDeltaTime());

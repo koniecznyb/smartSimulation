@@ -3,7 +3,6 @@ package org.redi;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.ai.steer.behaviors.Evade;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -17,7 +16,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class GdxGameClass extends ApplicationAdapter {
 
-    private final int NUMBER_OF_BOXES = 6;
+    private final int NUMBER_OF_BOXES = 15;
     private final int MAP_WIDTH = 50, MAP_HEIGHT = 50;
 
 	private OrthographicCamera camera;
@@ -30,14 +29,14 @@ public class GdxGameClass extends ApplicationAdapter {
 
     private Agent agent;
 
-    private int timeStep = 0, renderTimer = 0;
-
+    private int timeStep = 0, renderTimer = 0, reward = 0;
+    private Action prevAction, nextAction;
 
     @Override
 	public void create () {
 		shapeRenderer = new ShapeRenderer();
 
-        agent = new Agent(20f, 20f);
+        agent = new Agent(20, 20);
 
         batch = new SpriteBatch();
         font = new BitmapFont();
@@ -63,7 +62,7 @@ public class GdxGameClass extends ApplicationAdapter {
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.setColor(Color.BLUE);
 
-        int [][] environment = Environment.getInstance();
+        Environment.MAP_FIELD[][] environment = Environment.getInstance();
 
         for(int i=0; i<MAP_WIDTH; i++){
             for(int j=0; j<MAP_HEIGHT; j++){
@@ -79,7 +78,7 @@ public class GdxGameClass extends ApplicationAdapter {
     }
 
     private void initializeMap() {
-        int [][] environment = Environment.getInstance();
+        Environment.MAP_FIELD[][] environment = Environment.getInstance();
 
         for(int i=0; i<MAP_WIDTH; i++){
             for(int j=0; j<MAP_HEIGHT; j++){
@@ -96,11 +95,25 @@ public class GdxGameClass extends ApplicationAdapter {
 
         shapeRenderer.setProjectionMatrix(camera.combined);
 
+        drawFitness(reward);
+
         renderTimer++;
 
-        if(renderTimer % 60 == 0){
+        float epsilon = 0.2f;
 
-            agent.computeValueFunction(Environment.getInstance(), Action.MOVE_DOWN);
+        if(renderTimer % 30 == 0){
+
+            double d = Math.random();
+            if (d < epsilon){
+//           epsilon-greedy policy  takes random action once in a while
+                nextAction = Action.randomAction();
+            }
+            else {
+                nextAction = ;
+            }
+
+            agent.move(nextAction, Gdx.graphics.getDeltaTime());
+            reward += agent.computeValueFunction(Environment.getInstance(), nextAction);
             timeStep++;
             renderTimer = 1;
         }
@@ -117,21 +130,28 @@ public class GdxGameClass extends ApplicationAdapter {
         shapeRenderer.end();
 
         drawBox(MAP_WIDTH, MAP_HEIGHT);
-        debugMap();
+//        debugMap();
 
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT) || Gdx.input.isKeyPressed(Input.Keys.A)) {
-            agent.move(Direction.LEFT, Gdx.graphics.getDeltaTime());
+            agent.move(Action.MOVE_LEFT, Gdx.graphics.getDeltaTime());
         }
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) || Gdx.input.isKeyPressed(Input.Keys.D)) {
-            agent.move(Direction.RIGHT, Gdx.graphics.getDeltaTime());
+            agent.move(Action.MOVE_RIGHT, Gdx.graphics.getDeltaTime());
         }
         if (Gdx.input.isKeyPressed(Input.Keys.DOWN) || Gdx.input.isKeyPressed(Input.Keys.S)) {
-            agent.move(Direction.DOWN, Gdx.graphics.getDeltaTime());
+            agent.move(Action.MOVE_DOWN, Gdx.graphics.getDeltaTime());
         }
         if (Gdx.input.isKeyPressed(Input.Keys.UP) || Gdx.input.isKeyPressed(Input.Keys.W)) {
-            agent.move(Direction.UP, Gdx.graphics.getDeltaTime());
+            agent.move(Action.MOVE_UP, Gdx.graphics.getDeltaTime());
         }
 
+
+    }
+
+    private void drawFitness(int reward){
+        batch.begin();
+        font.draw(batch, "Fitness: " + reward, 100f, 120f);
+        batch.end();
 
     }
 
@@ -159,7 +179,7 @@ public class GdxGameClass extends ApplicationAdapter {
             int randomX = ThreadLocalRandom.current().nextInt(1, MAP_WIDTH-randomWidth);
             int randomY = ThreadLocalRandom.current().nextInt(1, MAP_HEIGHT-randomHeight);
 
-            int [][] environment = Environment.getInstance();
+            Environment.MAP_FIELD[][] environment = Environment.getInstance();
 
             for(int j=0; j<randomWidth; j++){
                 for(int k=0; k<randomHeight; k++){
@@ -174,7 +194,7 @@ public class GdxGameClass extends ApplicationAdapter {
 
             for(int j=0; j<randomWidth; j++){
                 for(int k=0; k<randomHeight; k++){
-                    environment[j+randomX][k+randomY] = 1;
+                    environment[j+randomX][k+randomY] = Environment.MAP_FIELD.EMPTY;
                 }
             }
         }

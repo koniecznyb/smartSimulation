@@ -6,15 +6,15 @@ package org.redi;
 public class Environment {
 
     private static int MAP_WIDTH = 50, MAP_HEIGHT = 50;
-    private static int [][] environmentState;
+    private static MAP_FIELD[][] environmentState;
 
-    public Environment(int[][] environmentState) {
+    public Environment(MAP_FIELD[][] environmentState) {
         this.environmentState = environmentState;
     }
 
-    public static int [][] getInstance(){
+    public static MAP_FIELD[][] getInstance(){
         if(environmentState == null) {
-            environmentState = new int[MAP_WIDTH][MAP_HEIGHT];
+            environmentState = new MAP_FIELD[MAP_WIDTH][MAP_HEIGHT];
         }
         return environmentState;
     }
@@ -23,5 +23,22 @@ public class Environment {
 
         return 2;
     }
+
+
+    public enum MAP_FIELD {
+
+        EMPTY(0), OBSTACLE(1), PRIZE(2);
+
+        private int numValue;
+
+        MAP_FIELD(int value) {
+            this.numValue = value;
+        }
+
+        public int getNumValue() {
+            return numValue;
+        }
+    }
+
 
 }

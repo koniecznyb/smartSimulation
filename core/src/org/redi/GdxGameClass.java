@@ -66,7 +66,7 @@ public class GdxGameClass extends ApplicationAdapter {
 
         for(int i=0; i<MAP_WIDTH; i++){
             for(int j=0; j<MAP_HEIGHT; j++){
-                if(environment[i][j] == 1){
+                if(environment[i][j] == Environment.MAP_FIELD.OBSTACLE){
                     shapeRenderer.point(i,j, 0);
                 }
                 else{
@@ -82,7 +82,7 @@ public class GdxGameClass extends ApplicationAdapter {
 
         for(int i=0; i<MAP_WIDTH; i++){
             for(int j=0; j<MAP_HEIGHT; j++){
-                environment[i][j] = 0;
+                environment[i][j] = Environment.MAP_FIELD.EMPTY;
             }
         }
     }
@@ -183,7 +183,7 @@ public class GdxGameClass extends ApplicationAdapter {
 
             for(int j=0; j<randomWidth; j++){
                 for(int k=0; k<randomHeight; k++){
-                    if( environment[j+randomX][k+randomY] == 1){
+                    if( environment[j+randomX][k+randomY] == Environment.MAP_FIELD.OBSTACLE){
                         i--;
                         continue;
                     }

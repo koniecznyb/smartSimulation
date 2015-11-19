@@ -29,7 +29,7 @@ public class Square {
     }
 
     public void applyMovement(float deltaTime) {
-// TODO: 2015-11-08 Movement of environment 
+// TODO: 2015-11-08 Movement of the environment
 
     }
 }

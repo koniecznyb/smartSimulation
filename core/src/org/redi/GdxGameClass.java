@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Vector;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +32,7 @@ public class GdxGameClass extends ApplicationAdapter {
 
     private int timeStep = 0, renderTimer = 0, reward = 0;
     private Action prevAction, nextAction;
+    private List <State> qValuesArray;
 
     @Override
 	public void create () {
@@ -48,14 +50,22 @@ public class GdxGameClass extends ApplicationAdapter {
 		camera = new OrthographicCamera(60, 60 * (h/w));
 		camera.position.set(camera.viewportWidth / 2f, camera.viewportHeight / 2f, 0);
 		camera.zoom = 3;
-		camera.update();
 
 		Gdx.input.setInputProcessor(new MouseScroll(camera));
 
         initializeMap();
         populateEnvironment(NUMBER_OF_BOXES);
 
+        initializeQValuesArray(qValuesArray);
+
     }
+
+    private void initializeQValuesArray(List<State> qValuesArray) {
+
+        qValuesArray = new ArrayList<>();
+        qValuesArray.add(new St);
+    }
+
 
     private void debugMap() {
 
@@ -194,7 +204,7 @@ public class GdxGameClass extends ApplicationAdapter {
 
             for(int j=0; j<randomWidth; j++){
                 for(int k=0; k<randomHeight; k++){
-                    environment[j+randomX][k+randomY] = Environment.MAP_FIELD.EMPTY;
+                    environment[j+randomX][k+randomY] = Environment.MAP_FIELD.OBSTACLE;
                 }
             }
         }

@@ -16,10 +16,7 @@ public class Agent {
 
     private Map<Environment.MAP_FIELD, Integer> rewardValues;
 
-    private int x;
-    private int y;
-    private int width = 1;
-    private int height = 1;
+    private int x, y, width = 1, height = 1;
     private float speedPerSecond = 1;
 
     private float fitness = 0;
@@ -38,6 +35,8 @@ public class Agent {
     public int computeValueFunction(Environment.MAP_FIELD[][] currentState, Action action){
         int reward = 0;
 
+
+// TODO: 16.11.15 add bounds 
         if(action == Action.MOVE_LEFT){
             reward = returnReward(currentState[x-1][y]);
         }

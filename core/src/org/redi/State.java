@@ -20,15 +20,19 @@ public class State {
 
     private Environment.MAP_FIELD mapObjectType;
 
-    private State(int agentPositionX, int agentPositionY, int mapObjectPositionX, int mapObjectPositionY, Environment.MAP_FIELD mapObjectType) {
-        this.agentPositionX = agentPositionX;
-        this.agentPositionY = agentPositionY;
+    private State(int mapObjectPositionX, int mapObjectPositionY, Environment.MAP_FIELD mapObjectType) {
         this.mapObjectPositionX = mapObjectPositionX;
         this.mapObjectPositionY = mapObjectPositionY;
         this.mapObjectType = mapObjectType;
     }
 
-    private static State with(int agentPositionX, int agentPositionY, int mapObjectPositionX, int mapObjectPositionY, Environment.MAP_FIELD mapObjectType){
-        return new State(agentPositionX, agentPositionY, mapObjectPositionX, mapObjectPositionY, mapObjectType);
+    public static State with(int mapObjectPositionX, int mapObjectPositionY, Environment.MAP_FIELD mapObjectType){
+        return new State(mapObjectPositionX, mapObjectPositionY, mapObjectType);
+    }
+
+    public static State getState(int [][] objectSurroundings){
+
+        return null;
+
     }
 }

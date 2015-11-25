@@ -53,7 +53,6 @@ public class GdxGameClass extends ApplicationAdapter {
 		Gdx.input.setInputProcessor(new MouseScroll(camera));
 
         environment.initializeMap();
-
         environment.populateEnvironment();
 
         initializeQValuesArray(qValuesArray);
@@ -63,7 +62,7 @@ public class GdxGameClass extends ApplicationAdapter {
     private void initializeQValuesArray(List<State> qValuesArray) {
 
         qValuesArray = new ArrayList<>();
-//        qValuesArray.add(new St);
+//        qValuesArray.add(State.with());
     }
 
 
@@ -84,6 +83,7 @@ public class GdxGameClass extends ApplicationAdapter {
         float epsilon = 0.2f;
 
         if(renderTimer % 30 == 0){
+            double Qmax = 0;
 
             double d = Math.random();
             if (d < epsilon){
@@ -138,6 +138,7 @@ public class GdxGameClass extends ApplicationAdapter {
 
     private void drawFitness(int reward){
         batch.begin();
+        font.setColor(Color.WHITE);
         font.draw(batch, "Fitness: " + reward, 100f, 120f);
         batch.end();
 
@@ -178,4 +179,4 @@ public class GdxGameClass extends ApplicationAdapter {
         }
         shapeRenderer.end();
     }
-s}
+}

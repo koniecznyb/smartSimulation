@@ -12,10 +12,10 @@ import java.util.concurrent.ThreadLocalRandom;
 public class Environment {
 
     private static Environment instance = null;
-    private static final int NUMBER_OF_BOXES = 15, NUMBER_OF_PRIZES = 10, MAP_WIDTH = 50, MAP_HEIGHT = 50;
+    private static final int NUMBER_OF_BOXES = 20, NUMBER_OF_PRIZES = 0, MAP_WIDTH = 50, MAP_HEIGHT = 50;
     @Getter private MAP_FIELD[][] environmentState;
     @Getter private List<Square> obstacleList = new ArrayList<>(), prizeList = new ArrayList<>();
-
+    @Getter private static List<State> possibleStatesList = new ArrayList<>();
 
 
     private Environment(MAP_FIELD[][] environmentState) {
@@ -29,15 +29,9 @@ public class Environment {
         return instance;
     }
 
-    public int respond(Action a, int agentPositionX, int agentPositionY){
-
-        return 2;
-    }
-
-
     public enum MAP_FIELD {
 
-        EMPTY(0), OBSTACLE(1), PRIZE(2);
+        EMPTY(0), OBSTACLE(1), PRIZE(2), BORDER(3);
 
         private int numValue;
 
@@ -59,10 +53,179 @@ public class Environment {
         }
     }
 
+    public void initializePossibleStatesList(){
+
+//        brak przeszkód w okolicy robota - 1 stan
+        possibleStatesList.add(State.with(new Environment.MAP_FIELD[][]{
+                {null,MAP_FIELD.EMPTY,null},
+                {MAP_FIELD.EMPTY,null,MAP_FIELD.EMPTY},
+                {null,MAP_FIELD.EMPTY,null}
+        }));
+
+//        jedna przeszkoda w okolicy robota - 4 stany
+        possibleStatesList.add(State.with(new Environment.MAP_FIELD[][]{
+                {null,MAP_FIELD.OBSTACLE,null},
+                {MAP_FIELD.EMPTY,null,MAP_FIELD.EMPTY},
+                {null,MAP_FIELD.EMPTY,null}
+        }));
+
+        possibleStatesList.add(State.with(new Environment.MAP_FIELD[][]{
+                {null,MAP_FIELD.EMPTY,null},
+                {MAP_FIELD.EMPTY,null,MAP_FIELD.OBSTACLE},
+                {null,MAP_FIELD.EMPTY,null}
+        }));
+
+        possibleStatesList.add(State.with(new Environment.MAP_FIELD[][]{
+                {null,MAP_FIELD.EMPTY,null},
+                {MAP_FIELD.EMPTY,null,MAP_FIELD.EMPTY},
+                {null,MAP_FIELD.OBSTACLE,null}
+        }));
+
+        possibleStatesList.add(State.with(new Environment.MAP_FIELD[][]{
+                {null,MAP_FIELD.EMPTY,null},
+                {MAP_FIELD.OBSTACLE,null,MAP_FIELD.EMPTY},
+                {null,MAP_FIELD.EMPTY,null}
+        }));
+
+//        dwie przeszkody w okolicy robota - 6 stanów
+        possibleStatesList.add(State.with(new Environment.MAP_FIELD[][]{
+                {null,MAP_FIELD.OBSTACLE,null},
+                {MAP_FIELD.EMPTY,null,MAP_FIELD.OBSTACLE},
+                {null,MAP_FIELD.EMPTY,null}
+        }));
+
+        possibleStatesList.add(State.with(new Environment.MAP_FIELD[][]{
+                {null,MAP_FIELD.OBSTACLE,null},
+                {MAP_FIELD.EMPTY,null,MAP_FIELD.EMPTY},
+                {null,MAP_FIELD.OBSTACLE,null}
+        }));
+
+        possibleStatesList.add(State.with(new Environment.MAP_FIELD[][]{
+                {null,MAP_FIELD.OBSTACLE,null},
+                {MAP_FIELD.OBSTACLE,null,MAP_FIELD.EMPTY},
+                {null,MAP_FIELD.EMPTY,null}
+        }));
+
+        possibleStatesList.add(State.with(new Environment.MAP_FIELD[][]{
+                {null,MAP_FIELD.EMPTY,null},
+                {MAP_FIELD.EMPTY,null,MAP_FIELD.OBSTACLE},
+                {null,MAP_FIELD.OBSTACLE,null}
+        }));
+
+        possibleStatesList.add(State.with(new Environment.MAP_FIELD[][]{
+                {null,MAP_FIELD.EMPTY,null},
+                {MAP_FIELD.OBSTACLE,null,MAP_FIELD.OBSTACLE},
+                {null,MAP_FIELD.EMPTY,null}
+        }));
+
+        possibleStatesList.add(State.with(new Environment.MAP_FIELD[][]{
+                {null,MAP_FIELD.EMPTY,null},
+                {MAP_FIELD.OBSTACLE,null,MAP_FIELD.EMPTY},
+                {null,MAP_FIELD.OBSTACLE,null}
+        }));
+
+//        trzy przeszkody w okolicy robota - 4 stany
+        possibleStatesList.add(State.with(new Environment.MAP_FIELD[][]{
+                {null,MAP_FIELD.OBSTACLE,null},
+                {MAP_FIELD.EMPTY,null,MAP_FIELD.OBSTACLE},
+                {null,MAP_FIELD.OBSTACLE,null}
+        }));
+
+        possibleStatesList.add(State.with(new Environment.MAP_FIELD[][]{
+                {null,MAP_FIELD.OBSTACLE,null},
+                {MAP_FIELD.OBSTACLE,null,MAP_FIELD.OBSTACLE},
+                {null,MAP_FIELD.EMPTY,null}
+        }));
+
+        possibleStatesList.add(State.with(new Environment.MAP_FIELD[][]{
+                {null,MAP_FIELD.OBSTACLE,null},
+                {MAP_FIELD.OBSTACLE,null,MAP_FIELD.EMPTY},
+                {null,MAP_FIELD.OBSTACLE,null}
+        }));
+
+        possibleStatesList.add(State.with(new Environment.MAP_FIELD[][]{
+                {null,MAP_FIELD.EMPTY,null},
+                {MAP_FIELD.OBSTACLE,null,MAP_FIELD.OBSTACLE},
+                {null,MAP_FIELD.OBSTACLE,null}
+        }));
+
+//        cztery przeszkoda w okolicy robota - 1 stan
+        possibleStatesList.add(State.with(new Environment.MAP_FIELD[][]{
+                {null,MAP_FIELD.OBSTACLE,null},
+                {MAP_FIELD.OBSTACLE,null,MAP_FIELD.OBSTACLE},
+                {null,MAP_FIELD.OBSTACLE,null}
+        }));
+
+//        granica, brak przeszkód - 4 stany
+        possibleStatesList.add(State.with(new Environment.MAP_FIELD[][]{
+                {null,MAP_FIELD.BORDER,null},
+                {MAP_FIELD.EMPTY,null,MAP_FIELD.EMPTY},
+                {null,MAP_FIELD.EMPTY,null}
+        }));
+
+        possibleStatesList.add(State.with(new Environment.MAP_FIELD[][]{
+                {null,MAP_FIELD.EMPTY,null},
+                {MAP_FIELD.EMPTY,null,MAP_FIELD.BORDER},
+                {null,MAP_FIELD.EMPTY,null}
+        }));
+
+        possibleStatesList.add(State.with(new Environment.MAP_FIELD[][]{
+                {null,MAP_FIELD.EMPTY,null},
+                {MAP_FIELD.EMPTY,null,MAP_FIELD.EMPTY},
+                {null,MAP_FIELD.BORDER,null}
+        }));
+
+        possibleStatesList.add(State.with(new Environment.MAP_FIELD[][]{
+                {null,MAP_FIELD.EMPTY,null},
+                {MAP_FIELD.BORDER,null,MAP_FIELD.EMPTY},
+                {null,MAP_FIELD.EMPTY,null}
+        }));
+
+//        dwie granice, brak przeszkód
+        possibleStatesList.add(State.with(new Environment.MAP_FIELD[][]{
+                {null,MAP_FIELD.BORDER,null},
+                {MAP_FIELD.BORDER,null,MAP_FIELD.EMPTY},
+                {null,MAP_FIELD.EMPTY,null}
+        }));
+
+        possibleStatesList.add(State.with(new Environment.MAP_FIELD[][]{
+                {null,MAP_FIELD.BORDER,null},
+                {MAP_FIELD.EMPTY,null,MAP_FIELD.BORDER},
+                {null,MAP_FIELD.EMPTY,null}
+        }));
+
+        possibleStatesList.add(State.with(new Environment.MAP_FIELD[][]{
+                {null,MAP_FIELD.EMPTY,null},
+                {MAP_FIELD.BORDER,null,MAP_FIELD.EMPTY},
+                {null,MAP_FIELD.BORDER,null}
+        }));
+
+        possibleStatesList.add(State.with(new Environment.MAP_FIELD[][]{
+                {null,MAP_FIELD.EMPTY,null},
+                {MAP_FIELD.EMPTY,null,MAP_FIELD.BORDER},
+                {null,MAP_FIELD.BORDER,null}
+        }));
+
+
+
+    }
+
     public void populateEnvironment(){
+        generateBorders();
         generateBoxes(NUMBER_OF_BOXES);
         generatePrizes(NUMBER_OF_PRIZES);
 
+    }
+
+    private void generateBorders() {
+        for(int i=0; i<MAP_WIDTH; i++){
+            environmentState[0][i] = MAP_FIELD.BORDER;
+            environmentState[MAP_HEIGHT-1][i] = MAP_FIELD.BORDER;
+        }
+        for(int j=0; j<MAP_HEIGHT; j++){
+            environmentState[j][MAP_WIDTH-1] = MAP_FIELD.BORDER;
+            environmentState[j][0] = MAP_FIELD.BORDER;
+        }
     }
 
     private void generatePrizes(int numberOfPrizes) {

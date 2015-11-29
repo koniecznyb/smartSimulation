@@ -29,38 +29,16 @@ public class Agent {
         rewardValues.put(Environment.MAP_FIELD.EMPTY, -1);
         rewardValues.put(Environment.MAP_FIELD.OBSTACLE, -5);
         rewardValues.put(Environment.MAP_FIELD.PRIZE, 10);
+        rewardValues.put(Environment.MAP_FIELD.BORDER, -200);
+
     }
 
 
-    public int computeValueFunction(Environment.MAP_FIELD[][] currentState, Action action){
-        int reward = 0;
-
-
-// TODO: 16.11.15 add bounds 
-        if(action == Action.MOVE_LEFT){
-            reward = returnReward(currentState[x-1][y]);
-        }
-        if(action == Action.MOVE_RIGHT){
-            reward = returnReward(currentState[x+1][y]);
-        }
-        if(action == Action.MOVE_DOWN){
-            reward = returnReward(currentState[x][y+1]);
-        }
-        if(action == Action.MOVE_UP){
-            reward = returnReward(currentState[x][y+1]);
-        }
-        System.out.println("Moving " + action + " in position [" + x + "][" + y + "], equals " +  reward);
-        return reward;
-    }
-
-    private int returnReward(Environment.MAP_FIELD environmentType){
+    public int returnReward(){
+        Environment.MAP_FIELD environmentType = Environment.getInstance().getEnvironmentState()[x][y];
         return rewardValues.get(environmentType);
     }
 
-    public Action chooseAction (int [][] environment){
-
-        return Action.MOVE_DOWN;
-    }
 
     public void draw(final ShapeRenderer shapeRenderer) {
         shapeRenderer.rect(x, y, width, height);

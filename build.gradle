@@ -12,6 +12,7 @@ allprojects {
     apply plugin: "idea"
 
     version = '1.0'
+
     ext {
         appName = "smartgame"
         gdxVersion = '1.7.0'
@@ -44,13 +45,20 @@ project(":desktop") {
 project(":core") {
     apply plugin: "java"
 
-
     dependencies {
+        testCompile 'junit:junit:[4,)'
         compile "org.projectlombok:lombok:1.16.6"
         compile "com.badlogicgames.gdx:gdx:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx-ai:$aiVersion"
         compile "com.badlogicgames.gdx:gdx-bullet:$gdxVersion"
+    }
+
+    test {
+        testLogging {
+            // Show that tests are run in the command-line output
+            events 'started', 'passed'
+        }
     }
 }
 

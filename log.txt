@@ -1,0 +1,189 @@
+QValues
+\e[H\e[2JQValues Table
+
+\e[H\e[2JQValues Table
+
+\e[H\e[2JQValues Table
+
+\e[H\e[2JQValues Table
+
+\e[H\e[2JQValues Table
+
+\e[H\e[2JQValues Table
+
+\e[H\e[2JQValues Table
+
+\e[H\e[2JQValues Table
+action: {MOVE_DOWN}, qvalue: {-1.0}
+action: {MOVE_LEFT}, qvalue: {-1.0}
+action: {MOVE_RIGHT}, qvalue: {-1.0}
+action: {MOVE_LEFT}, qvalue: {-1.0}
+action: {MOVE_LEFT}, qvalue: {-1.0}
+action: {MOVE_RIGHT}, qvalue: {-1.0}
+action: {MOVE_UP}, qvalue: {-1.0}
+action: {MOVE_UP}, qvalue: {-1.0}
+action: {MOVE_UP}, qvalue: {-1.0}
+action: {MOVE_UP}, qvalue: {-1.0}
+action: {MOVE_RIGHT}, qvalue: {-1.0}
+action: {MOVE_RIGHT}, qvalue: {-1.0}
+action: {MOVE_UP}, qvalue: {-1.0}
+action: {MOVE_DOWN}, qvalue: {-1.0}
+action: {MOVE_DOWN}, qvalue: {-1.0}
+action: {MOVE_LEFT}, qvalue: {-1.0}
+action: {MOVE_RIGHT}, qvalue: {-1.0}
+action: {MOVE_DOWN}, qvalue: {-1.0}
+action: {MOVE_DOWN}, qvalue: {-1.0}
+action: {MOVE_RIGHT}, qvalue: {-1.0}
+action: {MOVE_LEFT}, qvalue: {-1.0}
+action: {MOVE_DOWN}, qvalue: {-1.0}
+action: {MOVE_UP}, qvalue: {-1.0}
+action: {MOVE_DOWN}, qvalue: {-1.0}
+action: {MOVE_DOWN}, qvalue: {-1.0}
+action: {MOVE_RIGHT}, qvalue: {-1.0}
+action: {MOVE_LEFT}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_DOWN}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_RIGHT}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_UP}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_DOWN}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_DOWN}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_UP}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_RIGHT}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_LEFT}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_DOWN}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_UP}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_LEFT}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_LEFT}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_LEFT}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_LEFT}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_DOWN}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_UP}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_RIGHT}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_RIGHT}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_DOWN}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_UP}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_UP}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_RIGHT}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_DOWN}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_LEFT}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_UP}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_LEFT}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_RIGHT}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_DOWN}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_DOWN}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_LEFT}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_RIGHT}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_RIGHT}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_LEFT}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_DOWN}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_RIGHT}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_UP}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_RIGHT}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_LEFT}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_RIGHT}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_DOWN}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_LEFT}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_RIGHT}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_LEFT}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_LEFT}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_LEFT}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_RIGHT}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_UP}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_RIGHT}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_DOWN}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_RIGHT}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_DOWN}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_UP}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_DOWN}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_RIGHT}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_DOWN}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_LEFT}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_RIGHT}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_LEFT}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_LEFT}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_LEFT}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_DOWN}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_DOWN}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_LEFT}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_LEFT}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_RIGHT}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_RIGHT}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_LEFT}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_RIGHT}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_LEFT}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_LEFT}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_LEFT}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_DOWN}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_RIGHT}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_LEFT}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_DOWN}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_DOWN}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_LEFT}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_RIGHT}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_UP}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_DOWN}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_DOWN}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_DOWN}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_LEFT}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_UP}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_RIGHT}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_RIGHT}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_RIGHT}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_RIGHT}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_RIGHT}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_UP}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_LEFT}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_DOWN}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_UP}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_LEFT}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_RIGHT}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_RIGHT}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_RIGHT}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_UP}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_UP}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_RIGHT}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_UP}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_DOWN}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_RIGHT}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_LEFT}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_RIGHT}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_DOWN}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_RIGHT}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_UP}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_LEFT}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_DOWN}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_UP}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_DOWN}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_LEFT}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_RIGHT}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_DOWN}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_LEFT}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_DOWN}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_LEFT}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_LEFT}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_RIGHT}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_UP}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_DOWN}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_UP}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_DOWN}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_DOWN}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_RIGHT}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_UP}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_RIGHT}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_DOWN}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_LEFT}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_UP}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_DOWN}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_RIGHT}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_DOWN}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_LEFT}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_RIGHT}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_LEFT}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_DOWN}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_UP}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_UP}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_DOWN}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_RIGHT}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_DOWN}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_RIGHT}, qvalue: {-1.0}
+QVALUE TABLEaction: {MOVE_LEFT}, qvalue: {-1.0}
+QVALUE TABLE

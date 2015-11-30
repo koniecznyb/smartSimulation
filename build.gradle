@@ -46,6 +46,8 @@ project(":core") {
     apply plugin: "java"
 
     dependencies {
+        compile 'org.apache.poi:poi:3.13'
+        compile 'org.apache.poi:poi-ooxml:3.13'
         testCompile 'junit:junit:[4,)'
         compile "org.projectlombok:lombok:1.16.6"
         compile "com.badlogicgames.gdx:gdx:$gdxVersion"

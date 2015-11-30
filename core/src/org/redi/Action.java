@@ -1,5 +1,6 @@
 package org.redi;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -8,7 +9,7 @@ import java.util.Random;
 /**
  * Created by redi on 2015-10-21.
  */
-public enum Action {
+public enum Action implements Serializable{
 
     MOVE_UP, MOVE_DOWN, MOVE_RIGHT, MOVE_LEFT;
 

@@ -1,5 +1,7 @@
 package org.redi;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,15 +21,13 @@ public class Agent {
     private int x, y, width = 1, height = 1;
     private float speedPerSecond = 1;
 
-    private float fitness = 0;
-
     public Agent(int x, int y) {
         this.y = y;
         this.x = x;
 
         rewardValues = new HashMap<>();
         rewardValues.put(Environment.MAP_FIELD.EMPTY, -1);
-        rewardValues.put(Environment.MAP_FIELD.OBSTACLE, -5);
+        rewardValues.put(Environment.MAP_FIELD.OBSTACLE, 10);
         rewardValues.put(Environment.MAP_FIELD.PRIZE, 10);
         rewardValues.put(Environment.MAP_FIELD.BORDER, -200);
 
@@ -63,11 +63,20 @@ public class Agent {
         }
     }
 
-    public void increaseFitness(float amount){
-        fitness += amount;
-    }
-    public void decreaseFitness(float amount){
-        fitness -= amount;
-    }
+
+//    manual movement
+//    if (Gdx.input.isKeyPressed(Input.Keys.LEFT) || Gdx.input.isKeyPressed(Input.Keys.A)) {
+//        agent.move(Action.MOVE_LEFT, Gdx.graphics.getDeltaTime());
+//    }
+//    if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) || Gdx.input.isKeyPressed(Input.Keys.D)) {
+//        agent.move(Action.MOVE_RIGHT, Gdx.graphics.getDeltaTime());
+//    }
+//    if (Gdx.input.isKeyPressed(Input.Keys.DOWN) || Gdx.input.isKeyPressed(Input.Keys.S)) {
+//        agent.move(Action.MOVE_DOWN, Gdx.graphics.getDeltaTime());
+//    }
+//    if (Gdx.input.isKeyPressed(Input.Keys.UP) || Gdx.input.isKeyPressed(Input.Keys.W)) {
+//        agent.move(Action.MOVE_UP, Gdx.graphics.getDeltaTime());
+//    }
+
 
 }

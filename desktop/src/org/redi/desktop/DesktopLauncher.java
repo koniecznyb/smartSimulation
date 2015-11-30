@@ -9,6 +9,7 @@ public class DesktopLauncher {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		config.height = 800;
 		config.width = 600;
+		config.resizable = false;
 		config.title = "Smart agent simulation";
 		new LwjglApplication(new GdxGameClass(), config);
 	}

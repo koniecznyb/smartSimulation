@@ -3,22 +3,22 @@ package org.redi;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Optional;
 
 /**
  * Created by redi on 2015-11-15.
  */
 @Getter
 @Setter
-@ToString
 @EqualsAndHashCode
-public class State {
+public class State implements Comparable<State>, Serializable {
 
+    private static int statesID = 0;
+    public int stateID = statesID++;
     private Environment.MAP_FIELD [][] agentSurroundings;
 
     private State(Environment.MAP_FIELD[][] agentSurroundings) {
@@ -40,7 +40,8 @@ public class State {
                     .filter(state -> Arrays.deepEquals(state.agentSurroundings, agentSurroundings))
                     .findFirst().get();
         }catch (NoSuchElementException e){
-            System.out.println("not found state");
+            System.out.println(Arrays.deepToString(agentSurroundings));
+            throw new RuntimeException(e);
         }
        return identifiedState;
     }
@@ -102,4 +103,31 @@ public class State {
         return result;
     }
 
+    @Override
+    public String toString() {
+        StringBuilder stateString = new StringBuilder();
+
+        for(int y = agentSurroundings[0].length-1; y>= 0; y--){
+            for(int x = 0; x<agentSurroundings.length; x++){
+                if(x==1 && y == 1){
+                    stateString.append(getStateID());
+                }
+                else if(agentSurroundings[x][y] == null){
+                    stateString.append("X");
+                }
+                else {
+                    stateString.append(agentSurroundings[x][y]);
+                }
+                stateString.append(" ");
+            }
+            stateString.append("\n");
+        }
+
+        return stateString.toString();
+    }
+
+    @Override
+    public int compareTo(State o) {
+        return Integer.compare(this.getStateID(), o.getStateID());
+    }
 }

@@ -206,7 +206,78 @@ public class Environment {
                 {null,MAP_FIELD.BORDER,null}
         }));
 
+//        jedna granica, jedna przeszkoda
+        possibleStatesList.add(State.with(new Environment.MAP_FIELD[][]{
+                {null,MAP_FIELD.BORDER,null},
+                {MAP_FIELD.OBSTACLE,null,MAP_FIELD.EMPTY},
+                {null,MAP_FIELD.EMPTY,null}
+        }));
 
+        possibleStatesList.add(State.with(new Environment.MAP_FIELD[][]{
+                {null,MAP_FIELD.BORDER,null},
+                {MAP_FIELD.EMPTY,null,MAP_FIELD.EMPTY},
+                {null,MAP_FIELD.OBSTACLE,null}
+        }));
+
+        possibleStatesList.add(State.with(new Environment.MAP_FIELD[][]{
+                {null,MAP_FIELD.BORDER,null},
+                {MAP_FIELD.EMPTY,null,MAP_FIELD.OBSTACLE},
+                {null,MAP_FIELD.EMPTY,null}
+        }));
+
+        possibleStatesList.add(State.with(new Environment.MAP_FIELD[][]{
+                {null,MAP_FIELD.OBSTACLE,null},
+                {MAP_FIELD.BORDER,null,MAP_FIELD.EMPTY},
+                {null,MAP_FIELD.EMPTY,null}
+        }));
+
+        possibleStatesList.add(State.with(new Environment.MAP_FIELD[][]{
+                {null,MAP_FIELD.EMPTY,null},
+                {MAP_FIELD.BORDER,null,MAP_FIELD.OBSTACLE},
+                {null,MAP_FIELD.EMPTY,null}
+        }));
+
+        possibleStatesList.add(State.with(new Environment.MAP_FIELD[][]{
+                {null,MAP_FIELD.EMPTY,null},
+                {MAP_FIELD.BORDER,null,MAP_FIELD.EMPTY},
+                {null,MAP_FIELD.OBSTACLE,null}
+        }));
+
+        possibleStatesList.add(State.with(new Environment.MAP_FIELD[][]{
+                {null,MAP_FIELD.EMPTY,null},
+                {MAP_FIELD.OBSTACLE,null,MAP_FIELD.EMPTY},
+                {null,MAP_FIELD.BORDER,null}
+        }));
+
+        possibleStatesList.add(State.with(new Environment.MAP_FIELD[][]{
+                {null,MAP_FIELD.OBSTACLE,null},
+                {MAP_FIELD.EMPTY,null,MAP_FIELD.EMPTY},
+                {null,MAP_FIELD.BORDER,null}
+        }));
+
+        possibleStatesList.add(State.with(new Environment.MAP_FIELD[][]{
+                {null,MAP_FIELD.EMPTY,null},
+                {MAP_FIELD.EMPTY,null,MAP_FIELD.OBSTACLE},
+                {null,MAP_FIELD.BORDER,null}
+        }));
+
+        possibleStatesList.add(State.with(new Environment.MAP_FIELD[][]{
+                {null,MAP_FIELD.OBSTACLE,null},
+                {MAP_FIELD.EMPTY,null,MAP_FIELD.BORDER},
+                {null,MAP_FIELD.EMPTY,null}
+        }));
+
+        possibleStatesList.add(State.with(new Environment.MAP_FIELD[][]{
+                {null,MAP_FIELD.EMPTY,null},
+                {MAP_FIELD.OBSTACLE,null,MAP_FIELD.BORDER},
+                {null,MAP_FIELD.EMPTY,null}
+        }));
+
+        possibleStatesList.add(State.with(new Environment.MAP_FIELD[][]{
+                {null,MAP_FIELD.EMPTY,null},
+                {MAP_FIELD.EMPTY,null,MAP_FIELD.BORDER},
+                {null,MAP_FIELD.OBSTACLE,null}
+        }));
 
     }
 

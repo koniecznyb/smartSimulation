@@ -115,6 +115,15 @@ public class State implements Comparable<State>, Serializable {
                 else if(agentSurroundings[x][y] == null){
                     stateString.append("X");
                 }
+                else if(agentSurroundings[x][y] == Environment.MAP_FIELD.OBSTACLE){
+                    stateString.append("O");
+                }
+                else if(agentSurroundings[x][y] == Environment.MAP_FIELD.BORDER) {
+                    stateString.append("B");
+                }
+                else if(agentSurroundings[x][y] == Environment.MAP_FIELD.EMPTY){
+                    stateString.append("E");
+                }
                 else {
                     stateString.append(agentSurroundings[x][y]);
                 }

@@ -318,28 +318,46 @@ public class Environment {
     }
 
     private void generateBoxes(int numberOfBoxes) {
-        for (int i = 0; i < numberOfBoxes; i++) {
-            int randomWidth = ThreadLocalRandom.current().nextInt(1, 5);
-            int randomHeight = ThreadLocalRandom.current().nextInt(1, 5);
+//        RANDOM MAP
+//        for (int i = 0; i < numberOfBoxes; i++) {
+//            int randomWidth = ThreadLocalRandom.current().nextInt(1, 5);
+//            int randomHeight = ThreadLocalRandom.current().nextInt(1, 5);
+//
+//            int randomX = ThreadLocalRandom.current().nextInt(1, MAP_WIDTH - randomWidth);
+//            int randomY = ThreadLocalRandom.current().nextInt(1, MAP_HEIGHT - randomHeight);
+//
+//            for (int j = 0; j < randomWidth; j++) {
+//                for (int k = 0; k < randomHeight; k++) {
+//                    if (environmentState[j + randomX][k + randomY] != MAP_FIELD.EMPTY) {
+//                        i--;
+//                        continue;
+//                    }
+//                }
+//            }
+//
+//            obstacleList.add(new Square(randomX, randomY, randomWidth, randomHeight));
+//
+//            for (int j = 0; j < randomWidth; j++) {
+//                for (int k = 0; k < randomHeight; k++) {
+//                    environmentState[j + randomX][k + randomY] = MAP_FIELD.OBSTACLE;
+//                }
+//            }
+//        }
+//        ABITRARY MAP
 
-            int randomX = ThreadLocalRandom.current().nextInt(1, MAP_WIDTH - randomWidth);
-            int randomY = ThreadLocalRandom.current().nextInt(1, MAP_HEIGHT - randomHeight);
+        spawnBox(20, 10, 30, 5);
+        spawnBox(10, 20, 30, 5);
+        spawnBox(0, 30, 30, 5);
+        spawnBox(20, 40, 30, 2);
 
-            for (int j = 0; j < randomWidth; j++) {
-                for (int k = 0; k < randomHeight; k++) {
-                    if (environmentState[j + randomX][k + randomY] != MAP_FIELD.EMPTY) {
-                        i--;
-                        continue;
-                    }
-                }
-            }
+    }
 
-            obstacleList.add(new Square(randomX, randomY, randomWidth, randomHeight));
+    private void spawnBox(int x, int y, int width, int height){
+        obstacleList.add(new Square(x, y, width, height));
 
-            for (int j = 0; j < randomWidth; j++) {
-                for (int k = 0; k < randomHeight; k++) {
-                    environmentState[j + randomX][k + randomY] = MAP_FIELD.OBSTACLE;
-                }
+        for(int i=x; i<width; i++){
+            for(int j=y; j<height; j++){
+                environmentState[i][j] = MAP_FIELD.OBSTACLE;
             }
         }
     }

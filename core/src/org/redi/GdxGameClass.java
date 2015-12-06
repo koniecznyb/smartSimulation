@@ -34,7 +34,7 @@ public class GdxGameClass extends ApplicationAdapter {
 
 		shapeRenderer = new ShapeRenderer();
         environment = Environment.getInstance();
-        agent = new Agent(20, 20);
+        agent = new Agent(48, 2);
 
         batch = new SpriteBatch();
         font = new BitmapFont();

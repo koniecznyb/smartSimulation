@@ -1,7 +1,5 @@
 package org.redi;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,7 +14,7 @@ import java.util.Map;
 @Setter
 public class Agent {
 
-    private Map<Environment.MAP_FIELD, Integer> rewardValues;
+    private Map<Environment.MAP_FIELD, Double> rewardValues;
 
     private int x, y, width = 1, height = 1;
     private float speedPerSecond = 1;
@@ -26,17 +24,33 @@ public class Agent {
         this.x = x;
 
         rewardValues = new HashMap<>();
-        rewardValues.put(Environment.MAP_FIELD.EMPTY, -1);
-        rewardValues.put(Environment.MAP_FIELD.OBSTACLE, 10);
-        rewardValues.put(Environment.MAP_FIELD.PRIZE, 10);
-        rewardValues.put(Environment.MAP_FIELD.BORDER, -200);
+        rewardValues.put(Environment.MAP_FIELD.EMPTY, 0d);
+        rewardValues.put(Environment.MAP_FIELD.OBSTACLE, 10d);
+        rewardValues.put(Environment.MAP_FIELD.PRIZE, 10d);
+        rewardValues.put(Environment.MAP_FIELD.BORDER, -200d);
 
     }
 
 
-    public int returnReward(){
-        Environment.MAP_FIELD environmentType = Environment.getInstance().getEnvironmentState()[x][y];
-        return rewardValues.get(environmentType);
+    public double returnReward(State currentState, Action currentAction){
+
+        switch (currentAction){
+            case MOVE_DOWN:{
+                return rewardValues.get(currentState.getBottom());
+            }
+            case MOVE_UP:{
+                return rewardValues.get(currentState.getTop());
+            }
+            case MOVE_RIGHT:{
+                return rewardValues.get(currentState.getRight());
+            }
+            case MOVE_LEFT:{
+                return rewardValues.get(currentState.getLeft());
+            }
+            default:{
+                return 0;
+            }
+        }
     }
 
 

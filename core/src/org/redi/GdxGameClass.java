@@ -98,17 +98,17 @@ public class GdxGameClass extends ApplicationAdapter {
 
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.PAGE_DOWN)){
-            QLearningAlgorithm.slowDownSimulation();
+            QLearningAlgorithm.slowDown();
             System.out.println("Spowalniam");
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.PAGE_UP)){
-            QLearningAlgorithm.speedUpSimulation();
+            QLearningAlgorithm.speedUp();
             System.out.println("Przyspieszam");
         }
 
     }
 
-    private void drawFitness(int reward){
+    private void drawFitness(double reward){
         batch.begin();
         font.setColor(Color.WHITE);
         font.draw(batch, "Fitness: " + reward, 150, 80);

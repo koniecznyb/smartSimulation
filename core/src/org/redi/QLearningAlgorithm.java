@@ -2,8 +2,6 @@ package org.redi;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
@@ -23,82 +21,149 @@ public class QLearningAlgorithm implements Algorithm {
     private int threshold = 1;
     private int rate = 1;
 
-    public void slowDownSimulation(){
+    public void slowDown(){
         threshold += rate;
         threshold = MathUtils.clamp(threshold, 1, 1000);
     }
 
-    public void speedUpSimulation(){
+    public void speedUp(){
         threshold -= rate;
         threshold = MathUtils.clamp(threshold, 1, 1000);
     }
 
-
     @Override
-    public int run(Agent agent, int renderTimer) {
+    public double run(Agent agent, int renderTimer) {
 
-        State consideredNextState;
-        State currentState;
-        Action considerAction;
+        State currentState, nextState;
+        Action currentAction;
 
         if(renderTimer % threshold == 0){
-            double d = Math.random();
 
+//            start out in an initial state as the current state
             currentState = State.identifyState(agent.getX(), agent.getY(), Environment.getInstance().getEnvironmentState());
-            Map<Action, Integer> currentStateQValues = qValues.get(currentState);
-            List<Action> currentlyPossibleActions = new ArrayList<>(currentStateQValues.keySet());
+            List<Action> currentlyPossibleActions = new ArrayList<>(qValues.get(currentState).keySet());
 
-    //           Select one among all possible actions for the current state
-    //           epsilon-greedy policy takes random action once in a while
-            if (d < epsilon){
-                considerAction = currentlyPossibleActions.get(ThreadLocalRandom.current().nextInt(0, currentlyPossibleActions.size()));
+//            select one among all possible actions for the current state
+//            epsilon-greedy policy takes random action once in a while, otherwise chooses the best one
+            double d = Math.random();
+            if (d > epsilon){
 
+//                get best action for current state
+                double Qmax = 0;
+                Action bestAction = null;
+
+                for(Map.Entry<Action, Integer> actionEntry : qValues.get(currentState).entrySet()){
+                    if(actionEntry.getValue() >= Qmax){
+                        Qmax = actionEntry.getValue();
+                        bestAction = actionEntry.getKey();
+                    }
+                }
+                if(bestAction == null)
+                    throw new NullPointerException("Empty action!");
+                currentAction = bestAction;
             }
             else {
-                considerAction = currentlyPossibleActions.get(ThreadLocalRandom.current().nextInt(0, currentlyPossibleActions.size()));
+//                random action
+                currentAction = currentlyPossibleActions.get(ThreadLocalRandom.current().nextInt(0, currentlyPossibleActions.size()));
             }
 
-    //            Using this possible action, consider going to the next state.
-            consideredNextState = State.considerNextState(considerAction, agent.getX(), agent.getY());
-            Map<Action, Integer> consideredStateQValues = qValues.get(consideredNextState);
-            List<Action> consideredPossibleActions = new ArrayList<>(consideredStateQValues.keySet());
+//            consider transitioning to state, after executing current action
+            nextState = State.considerNextState(currentAction, agent.getX(), agent.getY());
 
+//            find qMax for nextState
             double Qmax = 0;
 
-    //            Get maximum Q value for this next state based on all possible actions.
-            for(Action action : consideredPossibleActions){
-                if(consideredStateQValues.get(action) > Qmax){
-                    Qmax = consideredStateQValues.get(action);
+            for(Map.Entry<Action, Integer> actionEntry : qValues.get(nextState).entrySet()){
+                if(actionEntry.getValue() > Qmax){
+                    Qmax = actionEntry.getValue();
                 }
             }
 
-    //            Compute: Q(state, action) = R(state, action) + Gamma * Max[Q(next state, all actions)]
-            int reward = agent.returnReward();
-            double currentStateQValue = qValues.get(currentState).get(considerAction);
-
-            double qValue = currentStateQValue + reward + gamma*(Qmax);
-
-            qValues.get(currentState).put(considerAction, (int) qValue);
+//            get the reward for the (current state, current action, next state) tuple
+            double reward = agent.returnReward(currentState, currentAction);
 
 
-    //            if (d < epsilon){
-    ////           epsilon-greedy policy  takes random action once in a while
-    //                nextAction = possibleActions.get(ThreadLocalRandom.current().nextInt(0, possibleActions.size()));
-    //
-    //            }
-    //            else {
-    //                nextAction = possibleActions.get(ThreadLocalRandom.current().nextInt(0, possibleActions.size()));
-    ////                possibleActions.stream().forEach(System.out::println);
-    //
-    //            }
+//            update Q value
+            double currentStateQValue = qValues.get(currentState).get(currentAction);
+            double qValue = currentStateQValue + gamma*(reward + gamma*Qmax - currentStateQValue);
+            qValues.get(currentState).put(currentAction, (int) qValue);
 
-            agent.move(considerAction, Gdx.graphics.getDeltaTime());
+
+//            set current state to next state, NOT NEEDED
+            currentState = nextState;
+
+            agent.move(currentAction, Gdx.graphics.getDeltaTime());
             timeStep++;
             return reward;
-
         }
+
         return 0;
     }
+//    @Override
+//    public int run(Agent agent, int renderTimer) {
+//
+//        State consideredNextState;
+//        State currentState;
+//        Action considerAction;
+//
+//        if(renderTimer % threshold == 0){
+//            double d = Math.random();
+//
+//            currentState = State.identifyState(agent.getX(), agent.getY(), Environment.getInstance().getEnvironmentState());
+//            Map<Action, Integer> currentStateQValues = qValues.get(currentState);
+//            List<Action> currentlyPossibleActions = new ArrayList<>(currentStateQValues.keySet());
+//
+//    //           Select one among all possible actions for the current state
+//    //           epsilon-greedy policy takes random action once in a while
+//            if (d < epsilon){
+//                considerAction = currentlyPossibleActions.get(ThreadLocalRandom.current().nextInt(0, currentlyPossibleActions.size()));
+//
+//            }
+//            else {
+//                considerAction = currentlyPossibleActions.get(ThreadLocalRandom.current().nextInt(0, currentlyPossibleActions.size()));
+//            }
+//
+//    //            Using this possible action, consider going to the next state.
+//            consideredNextState = State.considerNextState(considerAction, agent.getX(), agent.getY());
+//            Map<Action, Integer> consideredStateQValues = qValues.get(consideredNextState);
+//            List<Action> consideredPossibleActions = new ArrayList<>(consideredStateQValues.keySet());
+//
+//            double Qmax = 0;
+//
+//    //            Get maximum Q value for this next state based on all possible actions.
+//            for(Action action : consideredPossibleActions){
+//                if(consideredStateQValues.get(action) > Qmax){
+//                    Qmax = consideredStateQValues.get(action);
+//                }
+//            }
+//
+//    //            Compute: Q(state, action) = R(state, action) + Gamma * Max[Q(next state, all actions)]
+//            int reward = agent.returnReward();
+//            double currentStateQValue = qValues.get(currentState).get(considerAction);
+//
+//            double qValue = currentStateQValue + reward + gamma*(Qmax);
+//
+//            qValues.get(currentState).put(considerAction, (int) qValue);
+//
+//
+//    //            if (d < epsilon){
+//    ////           epsilon-greedy policy  takes random action once in a while
+//    //                nextAction = possibleActions.get(ThreadLocalRandom.current().nextInt(0, possibleActions.size()));
+//    //
+//    //            }
+//    //            else {
+//    //                nextAction = possibleActions.get(ThreadLocalRandom.current().nextInt(0, possibleActions.size()));
+//    ////                possibleActions.stream().forEach(System.out::println);
+//    //
+//    //            }
+//
+//            agent.move(considerAction, Gdx.graphics.getDeltaTime());
+//            timeStep++;
+//            return reward;
+//
+//        }
+//        return 0;
+//    }
 
     @Override
     public Map<State, Map<Action, Integer>> initializeQValuesArray() {

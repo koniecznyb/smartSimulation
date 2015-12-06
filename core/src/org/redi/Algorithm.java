@@ -7,10 +7,10 @@ import java.util.Map;
  */
 public interface Algorithm {
 
-    int run(final Agent agent, int renderTimer);
+    double run(final Agent agent, int renderTimer);
     Map<State, Map<Action, Integer>> initializeQValuesArray();
 
-    void speedUpSimulation();
-    void slowDownSimulation();
+    void speedUp();
+    void slowDown();
 
 }

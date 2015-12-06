@@ -12,7 +12,7 @@ import java.util.concurrent.ThreadLocalRandom;
 public class Environment {
 
     private static Environment instance = null;
-    private static final int NUMBER_OF_BOXES = 20, NUMBER_OF_PRIZES = 0, MAP_WIDTH = 50, MAP_HEIGHT = 50;
+    private static final int NUMBER_OF_BOXES = 15, NUMBER_OF_PRIZES = 0, MAP_WIDTH = 50, MAP_HEIGHT = 50;
     @Getter private MAP_FIELD[][] environmentState;
     @Getter private List<Square> obstacleList = new ArrayList<>(), prizeList = new ArrayList<>();
     @Getter private static List<State> possibleStatesList = new ArrayList<>();

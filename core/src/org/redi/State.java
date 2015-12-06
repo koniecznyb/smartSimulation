@@ -103,6 +103,23 @@ public class State implements Comparable<State>, Serializable {
         return result;
     }
 
+    public Environment.MAP_FIELD getLeft(){
+        return agentSurroundings[0][1];
+    }
+
+    public Environment.MAP_FIELD getRight(){
+        return agentSurroundings[2][1];
+    }
+
+    public Environment.MAP_FIELD getTop(){
+        return agentSurroundings[1][2];
+    }
+
+    public Environment.MAP_FIELD getBottom(){
+        return agentSurroundings[1][0];
+    }
+
+
     @Override
     public String toString() {
         StringBuilder stateString = new StringBuilder();

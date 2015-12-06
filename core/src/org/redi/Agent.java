@@ -25,14 +25,18 @@ public class Agent {
 
         rewardValues = new HashMap<>();
         rewardValues.put(Environment.MAP_FIELD.EMPTY, 0d);
-        rewardValues.put(Environment.MAP_FIELD.OBSTACLE, 10d);
-        rewardValues.put(Environment.MAP_FIELD.PRIZE, 10d);
+        rewardValues.put(Environment.MAP_FIELD.OBSTACLE, -10d);
+        rewardValues.put(Environment.MAP_FIELD.PRIZE, 100d);
         rewardValues.put(Environment.MAP_FIELD.BORDER, -200d);
 
     }
 
 
-    public double returnReward(State currentState, Action currentAction){
+    public double returnReward(State currentState, Action currentAction, int agentX, int agentY){
+
+//        if moving towards goal
+
+
 
         switch (currentAction){
             case MOVE_DOWN:{
@@ -40,6 +44,9 @@ public class Agent {
             }
             case MOVE_UP:{
                 return rewardValues.get(currentState.getTop());
+                if(Environment.getGoalY() > agentY){
+                    return rewardValues.get(currentState.getTop()) + 1;
+                }
             }
             case MOVE_RIGHT:{
                 return rewardValues.get(currentState.getRight());

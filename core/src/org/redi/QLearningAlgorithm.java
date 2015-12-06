@@ -50,7 +50,7 @@ public class QLearningAlgorithm implements Algorithm {
 
 //                get best action for current state
                 double Qmax = 0;
-                Action bestAction = null;
+                Action bestAction = Action.MOVE_UP;
 
                 for(Map.Entry<Action, Integer> actionEntry : qValues.get(currentState).entrySet()){
                     if(actionEntry.getValue() >= Qmax){
@@ -80,7 +80,7 @@ public class QLearningAlgorithm implements Algorithm {
             }
 
 //            get the reward for the (current state, current action, next state) tuple
-            double reward = agent.returnReward(currentState, currentAction);
+            double reward = agent.returnReward(currentState, currentAction, agent.getX(), agent.getY());
 
 
 //            update Q value

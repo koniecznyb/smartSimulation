@@ -31,6 +31,7 @@ package org.konieczny.bartlomiej.algorithms;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
+import lombok.Setter;
 import org.konieczny.bartlomiej.model.Action;
 import org.konieczny.bartlomiej.model.Agent;
 import org.konieczny.bartlomiej.simulation.Environment;
@@ -55,11 +56,13 @@ import java.util.function.Predicate;
  */
 public class QLearningAlgorithm implements Algorithm {
 
-    private int timeStep = 0, reward = 0;
+    private int timeStep = 0;
+    private int reward = 0;
     private Map<State, Map<Action, Float>> qValues;
 
-    float gamma = 0.95f;
-    float epsilon = 0.2f;
+    float discountFactor = 1f;
+    float learningRate = 1f;
+    @Setter float epsilon = 0.2f;
 
     private int threshold = 1;
     private int rate = 1;
@@ -67,6 +70,16 @@ public class QLearningAlgorithm implements Algorithm {
     public void slowDown(){
         threshold += rate;
         threshold = MathUtils.clamp(threshold, 1, 1000);
+    }
+
+    @Override
+    public int getTimeStep() {
+        return timeStep;
+    }
+
+    @Override
+    public void reset() {
+        timeStep = 0;
     }
 
     public void speedUp(){
@@ -92,8 +105,8 @@ public class QLearningAlgorithm implements Algorithm {
             if (d > epsilon){
 
 //                get best action for current state
-                double Qmax = 0;
-                Action bestAction = Action.MOVE_UP;
+                double Qmax = qValues.get(currentState).get(currentlyPossibleActions.get(0));
+                Action bestAction = null;
 
                 for(Map.Entry<Action, Float> actionEntry : qValues.get(currentState).entrySet()){
                     if(actionEntry.getValue() >= Qmax){
@@ -101,8 +114,11 @@ public class QLearningAlgorithm implements Algorithm {
                         bestAction = actionEntry.getKey();
                     }
                 }
-                if(bestAction == null)
+                if(bestAction == null){
+                    for(Map.Entry<Action, Float> actionEntry : qValues.get(currentState).entrySet())
+                        System.out.println(actionEntry);
                     throw new NullPointerException("Empty action!");
+                }
                 currentAction = bestAction;
             }
             else {
@@ -128,7 +144,7 @@ public class QLearningAlgorithm implements Algorithm {
 
 //            update Q value
             float currentStateQValue = qValues.get(currentState).get(currentAction);
-            float qValue = currentStateQValue + gamma*(reward + gamma*Qmax - currentStateQValue);
+            float qValue = currentStateQValue + learningRate *(reward + discountFactor *Qmax - currentStateQValue);
             qValues.get(currentState).put(currentAction, qValue);
 
 
@@ -137,10 +153,6 @@ public class QLearningAlgorithm implements Algorithm {
 
             agent.move(currentAction, Gdx.graphics.getDeltaTime());
             timeStep++;
-
-            if(agent.getX() == Environment.getGoalX() && agent.getY() == Environment.getGoalY()){
-                System.out.println("Goal state achevied with " + reward + "points and " + timeStep );
-            }
 
             return reward;
         }
@@ -189,7 +201,7 @@ public class QLearningAlgorithm implements Algorithm {
 //            int reward = agent.returnReward();
 //            double currentStateQValue = qValues.get(currentState).get(considerAction);
 //
-//            double qValue = currentStateQValue + reward + gamma*(Qmax);
+//            double qValue = currentStateQValue + reward + learningRate*(Qmax);
 //
 //            qValues.get(currentState).put(considerAction, (int) qValue);
 //

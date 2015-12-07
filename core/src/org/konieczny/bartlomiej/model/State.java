@@ -134,14 +134,14 @@ public class State implements Comparable<State>, Serializable {
             Arrays.fill(mapFields, null);
         }
 
-//        lewa
-        agentSurroundings[0][1] = currentMapState[agentPositionX-1][agentPositionY];
-//        prawa
-        agentSurroundings[2][1] = currentMapState[agentPositionX+1][agentPositionY];
-//        dół
-        agentSurroundings[1][0] = currentMapState[agentPositionX][agentPositionY-1];
-//        góra
-        agentSurroundings[1][2] = currentMapState[agentPositionX][agentPositionY+1];
+        //        lewa
+        agentSurroundings[0][1] = currentMapState[agentPositionX - 1][agentPositionY];
+        //        prawa
+        agentSurroundings[2][1] = currentMapState[agentPositionX + 1][agentPositionY];
+        //        dół
+        agentSurroundings[1][0] = currentMapState[agentPositionX][agentPositionY - 1];
+        //        góra
+        agentSurroundings[1][2] = currentMapState[agentPositionX][agentPositionY + 1];
 
         return agentSurroundings;
     }
@@ -173,7 +173,6 @@ public class State implements Comparable<State>, Serializable {
     public Environment.MAP_FIELD getBottom(){
         return agentSurroundings[1][0];
     }
-
 
     @Override
     public String toString() {

@@ -64,18 +64,22 @@ public class GdxGameClass extends ApplicationAdapter {
     private Agent agent;
 
     private Environment environment;
-    private Algorithm QLearningAlgorithm;
+    private Algorithm qLearningAlgorithm;
 
     private int renderTimer = 0, reward = 0;
 
     private Map<State, Map<Action, Float>> qValues;
+    private int runNumber = 0;
+
+    private boolean isEpsilonGreedyPolicy = true;
+
 
     @Override
 	public void create () {
 
 		shapeRenderer = new ShapeRenderer();
         environment = Environment.getInstance();
-        agent = new Agent(48, 2);
+        agent = Agent.reset();
 
         batch = new SpriteBatch();
         font = new BitmapFont();
@@ -87,14 +91,12 @@ public class GdxGameClass extends ApplicationAdapter {
         camera = new OrthographicCamera(100, 100 * (h / w));
 		camera.position.set(25, 50, 0);
 
-        ExcelPrinter.createNewRunData(1);
-
         environment.initializeMap();
         environment.populateEnvironment();
         environment.initializePossibleStatesList();
 
-        QLearningAlgorithm = new QLearningAlgorithm();
-        qValues = QLearningAlgorithm.initializeQValuesArray();
+        qLearningAlgorithm = new QLearningAlgorithm();
+        qValues = qLearningAlgorithm.initializeQValuesArray();
     }
 
     @Override
@@ -107,13 +109,7 @@ public class GdxGameClass extends ApplicationAdapter {
 
         renderTimer++;
 
-        reward += QLearningAlgorithm.run(agent, renderTimer);
-
-
-
-        if(renderTimer%1000 == 0){
-            ExcelPrinter.saveData(qValues);
-        }
+        reward += qLearningAlgorithm.run(agent, renderTimer);
 
         drawFitness(reward);
 
@@ -135,18 +131,52 @@ public class GdxGameClass extends ApplicationAdapter {
         agent.draw(shapeRenderer);
         shapeRenderer.end();
 
-        if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER)){
+        if(Gdx.input.isKeyJustPressed(Input.Keys.P)){
+            System.out.print("Changing policy to ");
+            if(isEpsilonGreedyPolicy){
+                System.out.print("optimal\n");
+                qLearningAlgorithm.setEpsilon(0);
+                isEpsilonGreedyPolicy = false;
+            }
+            else{
+                System.out.print("greedy\n");
+                qLearningAlgorithm.setEpsilon(0.2f);
+                isEpsilonGreedyPolicy = true;
+            }
 
         }
+
+        if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER)){
+            resetSimulation(false);
+        }
         if(Gdx.input.isKeyJustPressed(Input.Keys.PAGE_DOWN)){
-            QLearningAlgorithm.slowDown();
+            qLearningAlgorithm.slowDown();
             System.out.println("Spowalniam");
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.PAGE_UP)){
-            QLearningAlgorithm.speedUp();
+            qLearningAlgorithm.speedUp();
             System.out.println("Przyspieszam");
         }
 
+
+        if(agent.getX() == Environment.getGoalX() && agent.getY() == Environment.getGoalY())
+            resetSimulation(true);
+    }
+
+    private void resetSimulation(boolean finished) {
+        ExcelPrinter.createNewRunData(runNumber);
+        ExcelPrinter.saveData(qValues);
+
+        if(finished)
+            ExcelPrinter.saveSimulationResult("Goal state achieved with " + reward + " points and timestep equal to " + qLearningAlgorithm.getTimeStep());
+
+        ExcelPrinter.saveToFile();
+
+        Agent.reset();
+
+        qLearningAlgorithm.reset();
+        reward = 0;
+        runNumber++;
     }
 
 

@@ -45,23 +45,25 @@ import java.util.Map;
  * </p>
  * Created by Bartłomiej Konieczny on 2015-10-18.
  */
-@Getter
-@Setter
 public class Agent {
+
+    private static Agent agent = null;
 
     private Map<Environment.MAP_FIELD, Float> rewardValues;
 
-    private int x, y, width = 1, height = 1;
+    @Getter private int x, y;
+
+    private int width = 1, height = 1;
     private float speedPerSecond = 1;
 
-    public Agent(int x, int y) {
+    private Agent(int x, int y) {
         this.y = y;
         this.x = x;
 
         rewardValues = new HashMap<>();
-        rewardValues.put(Environment.MAP_FIELD.EMPTY, -1f);
-        rewardValues.put(Environment.MAP_FIELD.OBSTACLE, -10f);
-        rewardValues.put(Environment.MAP_FIELD.PRIZE, 100f);
+        rewardValues.put(Environment.MAP_FIELD.EMPTY, -2f);
+        rewardValues.put(Environment.MAP_FIELD.OBSTACLE, -1000f);
+        rewardValues.put(Environment.MAP_FIELD.PRIZE, 1000f);
         rewardValues.put(Environment.MAP_FIELD.BORDER, -200f);
 
     }
@@ -80,30 +82,31 @@ public class Agent {
      */
     public float returnReward(State currentState, Action currentAction, int agentX, int agentY){
 
+        float prizeForRightDirection = 1f;
         switch (currentAction){
             case MOVE_DOWN:{
 //                if moving towards goal
                 if(Environment.getGoalY() < agentY){
-                    return rewardValues.get(currentState.getTop()) + 5f;
+                    return rewardValues.get(currentState.getBottom()) + prizeForRightDirection;
                 }
                 return rewardValues.get(currentState.getBottom());
             }
             case MOVE_UP:{
                 if(Environment.getGoalY() > agentY){
-                    return rewardValues.get(currentState.getTop()) + 5f;
+                    return rewardValues.get(currentState.getTop()) + prizeForRightDirection;
                 }
                 return rewardValues.get(currentState.getTop());
 
             }
             case MOVE_RIGHT:{
                 if(Environment.getGoalX() > agentX){
-                    return rewardValues.get(currentState.getTop()) + 5f;
+                    return rewardValues.get(currentState.getRight()) + prizeForRightDirection;
                 }
                 return rewardValues.get(currentState.getRight());
             }
             case MOVE_LEFT:{
                 if(Environment.getGoalX() < agentX){
-                    return rewardValues.get(currentState.getTop()) + 5f;
+                    return rewardValues.get(currentState.getLeft()) + prizeForRightDirection;
                 }
                 return rewardValues.get(currentState.getLeft());
             }
@@ -138,6 +141,18 @@ public class Agent {
         if(action == Action.MOVE_RIGHT){
 //            x = x + (int) (speedPerSecond * deltaTime);
             x += speedPerSecond;
+        }
+    }
+
+    public static Agent reset() {
+        if(agent == null){
+            agent =  new Agent(47, 2);
+            return agent;
+        }
+        else{
+            agent.x = 47;
+            agent.y = 2;
+            return agent;
         }
     }
 

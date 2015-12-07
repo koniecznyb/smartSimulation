@@ -51,7 +51,7 @@ import java.util.Set;
  */
 public class ExcelPrinter {
 
-    private static XSSFWorkbook workbook;
+    private static XSSFWorkbook workbook = new XSSFWorkbook();
     private static XSSFSheet sheet;
 
     static int rownum = 0;
@@ -61,11 +61,10 @@ public class ExcelPrinter {
      * @param id id of a sheet
      */
     public static void createNewRunData(int id){
-        //Blank workbook
-        workbook = new XSSFWorkbook();
-
         //Create a blank sheet
         sheet = workbook.createSheet("Run #" + id);
+
+        rownum = 0;
 
     }
 
@@ -92,6 +91,14 @@ public class ExcelPrinter {
         }
     }
 
+    public static void saveSimulationResult(String result){
+        Row simulationRow;
+        sheet.createRow(rownum++);
+        simulationRow = sheet.createRow(rownum++);
+
+        simulationRow.createCell(0).setCellValue(result);
+        sheet.autoSizeColumn(0);
+    }
 
     /**
      * Saves Q-Value array.
@@ -138,14 +145,12 @@ public class ExcelPrinter {
                 }
             }
         }
-
-        saveToFile();
     }
 
     /**
      * Saves to an file in current filesystem.
      */
-    private static void saveToFile() {
+    public static void saveToFile() {
         try {
             //Write the workbook in file system
             FileOutputStream out = new FileOutputStream(new File("data.xlsx"));

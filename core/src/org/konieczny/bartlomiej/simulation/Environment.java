@@ -42,7 +42,7 @@ import java.util.concurrent.ThreadLocalRandom;
 /**
  * <p>
  *     Singleton class representing the environment in which agent is operating.
- *     Definies size of the map, current state of the environment, list of obstacles, list of prizes and
+ *     Defines size of the map, current state of the environment, list of obstacles, list of prizes and
  *     all possible states, that can occur to an agent.
  * </p>
  * <p>
@@ -51,7 +51,7 @@ import java.util.concurrent.ThreadLocalRandom;
  * <p>
  *     Created by Bartłomiej Konieczny on 2015-10-17.
  * </p>
- *      @see Agent
+ *     @see Agent
  *     @see State
  *     @see Action
  */
@@ -59,7 +59,7 @@ public class Environment {
 
     private static Environment instance = null;
     private static final int NUMBER_OF_BOXES = 15, NUMBER_OF_PRIZES = 0, MAP_WIDTH = 50, MAP_HEIGHT = 50;
-    @Getter private static final int goalX = 48, goalY = 48;
+    @Getter private static final int goalX = 2, goalY = 48;
     @Getter private MAP_FIELD[][] environmentState;
     @Getter private List<Square> obstacleList = new ArrayList<>(), prizeList = new ArrayList<>();
     @Getter private static List<State> possibleStatesList = new ArrayList<>();
@@ -97,6 +97,91 @@ public class Environment {
         for(int i=0; i<MAP_WIDTH; i++){
             for(int j=0; j<MAP_HEIGHT; j++){
                 environmentState[i][j] = Environment.MAP_FIELD.EMPTY;
+            }
+        }
+    }
+
+    public void populateEnvironment(){
+        spawnBox(20, 10, 30, 5);
+        spawnBox(10, 20, 30, 5);
+        spawnBox(0, 30, 30, 5);
+        spawnBox(20, 40, 30, 2);
+        spawnPrize(goalX, goalY);
+        generateBorders();
+//        generateRandomBoxes(NUMBER_OF_BOXES);
+//        generateRandomPrizes(NUMBER_OF_PRIZES);
+
+    }
+
+    private void spawnPrize(int x, int y) {
+        prizeList.add(new Square(x, y, 1, 1));
+        environmentState[x][y] = MAP_FIELD.PRIZE;
+    }
+
+    private void spawnBox(int x, int y, int width, int height){
+        obstacleList.add(new Square(x, y, width, height));
+
+        for(int i=x; i<width+x; i++){
+            for(int j=y; j<height+y; j++){
+                environmentState[i][j] = MAP_FIELD.OBSTACLE;
+            }
+        }
+    }
+
+
+    private void generateBorders() {
+        for(int i=0; i<MAP_WIDTH; i++){
+            environmentState[0][i] = MAP_FIELD.BORDER;
+            environmentState[MAP_HEIGHT-1][i] = MAP_FIELD.BORDER;
+        }
+        for(int j=0; j<MAP_HEIGHT; j++){
+            environmentState[j][MAP_WIDTH-1] = MAP_FIELD.BORDER;
+            environmentState[j][0] = MAP_FIELD.BORDER;
+        }
+    }
+
+    private void generateRandomPrizes(int numberOfPrizes) {
+        for (int i = 0; i < numberOfPrizes; i++) {
+
+            int randomX = ThreadLocalRandom.current().nextInt(1, MAP_WIDTH - 1);
+            int randomY = ThreadLocalRandom.current().nextInt(1, MAP_HEIGHT - 1);
+
+            if(environmentState[randomX][randomY] != MAP_FIELD.EMPTY){
+                i--;
+                continue;
+            }
+
+            prizeList.add(new Square(randomX, randomY, 1, 1));
+
+            environmentState[randomX][randomY] = MAP_FIELD.PRIZE;
+        }
+
+    }
+
+    private void generateRandomBoxes(int numberOfBoxes) {
+//        RANDOM MAP
+        for (int i = 0; i < numberOfBoxes; i++) {
+            int randomWidth = ThreadLocalRandom.current().nextInt(1, 5);
+            int randomHeight = ThreadLocalRandom.current().nextInt(1, 5);
+
+            int randomX = ThreadLocalRandom.current().nextInt(1, MAP_WIDTH - randomWidth);
+            int randomY = ThreadLocalRandom.current().nextInt(1, MAP_HEIGHT - randomHeight);
+
+            for (int j = 0; j < randomWidth; j++) {
+                for (int k = 0; k < randomHeight; k++) {
+                    if (environmentState[j + randomX][k + randomY] != MAP_FIELD.EMPTY) {
+                        i--;
+                        continue;
+                    }
+                }
+            }
+
+            obstacleList.add(new Square(randomX, randomY, randomWidth, randomHeight));
+
+            for (int j = 0; j < randomWidth; j++) {
+                for (int k = 0; k < randomHeight; k++) {
+                    environmentState[j + randomX][k + randomY] = MAP_FIELD.OBSTACLE;
+                }
             }
         }
     }
@@ -327,6 +412,29 @@ public class Environment {
                 {null,MAP_FIELD.OBSTACLE,null}
         }));
 
+//        nagroda
+
+        possibleStatesList.add(State.with(new Environment.MAP_FIELD[][]{
+                {null,MAP_FIELD.PRIZE,null},
+                {MAP_FIELD.EMPTY,null,MAP_FIELD.EMPTY},
+                {null,MAP_FIELD.EMPTY,null}
+        }));
+        possibleStatesList.add(State.with(new Environment.MAP_FIELD[][]{
+                {null,MAP_FIELD.EMPTY,null},
+                {MAP_FIELD.PRIZE,null,MAP_FIELD.EMPTY},
+                {null,MAP_FIELD.EMPTY,null}
+        }));
+        possibleStatesList.add(State.with(new Environment.MAP_FIELD[][]{
+                {null,MAP_FIELD.EMPTY,null},
+                {MAP_FIELD.EMPTY,null,MAP_FIELD.EMPTY},
+                {null,MAP_FIELD.PRIZE,null}
+        }));
+        possibleStatesList.add(State.with(new Environment.MAP_FIELD[][]{
+                {null,MAP_FIELD.EMPTY,null},
+                {MAP_FIELD.EMPTY,null,MAP_FIELD.PRIZE},
+                {null,MAP_FIELD.EMPTY,null}
+        }));
+
 //        nagroda, 1 granica
 
         possibleStatesList.add(State.with(new Environment.MAP_FIELD[][]{
@@ -395,94 +503,95 @@ public class Environment {
                 {null,MAP_FIELD.PRIZE,null}
         }));
 
+//        2 przeszkody, 1 granica
+        possibleStatesList.add(State.with(new Environment.MAP_FIELD[][]{
+                {null,MAP_FIELD.EMPTY,null},
+                {MAP_FIELD.OBSTACLE,null,MAP_FIELD.BORDER},
+                {null,MAP_FIELD.OBSTACLE,null}
+        }));
+        possibleStatesList.add(State.with(new Environment.MAP_FIELD[][]{
+                {null,MAP_FIELD.OBSTACLE,null},
+                {MAP_FIELD.OBSTACLE,null,MAP_FIELD.BORDER},
+                {null,MAP_FIELD.EMPTY,null}
+        }));
+        possibleStatesList.add(State.with(new Environment.MAP_FIELD[][]{
+                {null,MAP_FIELD.OBSTACLE,null},
+                {MAP_FIELD.EMPTY,null,MAP_FIELD.BORDER},
+                {null,MAP_FIELD.OBSTACLE,null}
+        }));
+
+        possibleStatesList.add(State.with(new Environment.MAP_FIELD[][]{
+                {null,MAP_FIELD.BORDER,null},
+                {MAP_FIELD.OBSTACLE,null,MAP_FIELD.OBSTACLE},
+                {null,MAP_FIELD.EMPTY,null}
+        }));
+        possibleStatesList.add(State.with(new Environment.MAP_FIELD[][]{
+                {null,MAP_FIELD.BORDER,null},
+                {MAP_FIELD.OBSTACLE,null,MAP_FIELD.EMPTY},
+                {null,MAP_FIELD.OBSTACLE,null}
+        }));
+        possibleStatesList.add(State.with(new Environment.MAP_FIELD[][]{
+                {null,MAP_FIELD.BORDER,null},
+                {MAP_FIELD.EMPTY,null,MAP_FIELD.OBSTACLE},
+                {null,MAP_FIELD.OBSTACLE,null}
+        }));
+
+        possibleStatesList.add(State.with(new Environment.MAP_FIELD[][]{
+                {null,MAP_FIELD.OBSTACLE,null},
+                {MAP_FIELD.BORDER,null,MAP_FIELD.EMPTY},
+                {null,MAP_FIELD.OBSTACLE,null}
+        }));
+        possibleStatesList.add(State.with(new Environment.MAP_FIELD[][]{
+                {null,MAP_FIELD.OBSTACLE,null},
+                {MAP_FIELD.BORDER,null,MAP_FIELD.OBSTACLE},
+                {null,MAP_FIELD.EMPTY,null}
+        }));
+        possibleStatesList.add(State.with(new Environment.MAP_FIELD[][]{
+                {null,MAP_FIELD.EMPTY,null},
+                {MAP_FIELD.BORDER,null,MAP_FIELD.OBSTACLE},
+                {null,MAP_FIELD.OBSTACLE,null}
+        }));
+
+        possibleStatesList.add(State.with(new Environment.MAP_FIELD[][]{
+                {null,MAP_FIELD.OBSTACLE,null},
+                {MAP_FIELD.OBSTACLE,null,MAP_FIELD.EMPTY},
+                {null,MAP_FIELD.BORDER,null}
+        }));
+        possibleStatesList.add(State.with(new Environment.MAP_FIELD[][]{
+                {null,MAP_FIELD.OBSTACLE,null},
+                {MAP_FIELD.EMPTY,null,MAP_FIELD.OBSTACLE},
+                {null,MAP_FIELD.BORDER,null}
+        }));
+        possibleStatesList.add(State.with(new Environment.MAP_FIELD[][]{
+                {null,MAP_FIELD.EMPTY,null},
+                {MAP_FIELD.OBSTACLE,null,MAP_FIELD.OBSTACLE},
+                {null,MAP_FIELD.BORDER,null}
+        }));
+
+//        3 przeszkody, 1 granica
+        possibleStatesList.add(State.with(new Environment.MAP_FIELD[][]{
+                {null,MAP_FIELD.BORDER,null},
+                {MAP_FIELD.OBSTACLE,null,MAP_FIELD.OBSTACLE},
+                {null,MAP_FIELD.OBSTACLE,null}
+        }));
+
+        possibleStatesList.add(State.with(new Environment.MAP_FIELD[][]{
+                {null,MAP_FIELD.OBSTACLE,null},
+                {MAP_FIELD.BORDER,null,MAP_FIELD.OBSTACLE},
+                {null,MAP_FIELD.OBSTACLE,null}
+        }));
+
+        possibleStatesList.add(State.with(new Environment.MAP_FIELD[][]{
+                {null,MAP_FIELD.OBSTACLE,null},
+                {MAP_FIELD.OBSTACLE,null,MAP_FIELD.OBSTACLE},
+                {null,MAP_FIELD.BORDER,null}
+        }));
+
+        possibleStatesList.add(State.with(new Environment.MAP_FIELD[][]{
+                {null,MAP_FIELD.OBSTACLE,null},
+                {MAP_FIELD.OBSTACLE,null,MAP_FIELD.BORDER},
+                {null,MAP_FIELD.OBSTACLE,null}
+        }));
 
     }
-
-    public void populateEnvironment(){
-        generateBorders();
-        spawnBox(20, 10, 30, 5);
-        spawnBox(10, 20, 30, 5);
-        spawnBox(0, 30, 30, 5);
-        spawnBox(20, 40, 30, 2);
-        spawnPrize(48, 48);
-//        generateRandomBoxes(NUMBER_OF_BOXES);
-//        generateRandomPrizes(NUMBER_OF_PRIZES);
-
-    }
-
-    private void spawnPrize(int x, int y) {
-        prizeList.add(new Square(x, y, 1, 1));
-        environmentState[x][y] = MAP_FIELD.PRIZE;
-    }
-
-    private void spawnBox(int x, int y, int width, int height){
-        obstacleList.add(new Square(x, y, width, height));
-
-        for(int i=x; i<width; i++){
-            for(int j=y; j<height; j++){
-                environmentState[i][j] = MAP_FIELD.OBSTACLE;
-            }
-        }
-    }
-
-
-    private void generateBorders() {
-        for(int i=0; i<MAP_WIDTH; i++){
-            environmentState[0][i] = MAP_FIELD.BORDER;
-            environmentState[MAP_HEIGHT-1][i] = MAP_FIELD.BORDER;
-        }
-        for(int j=0; j<MAP_HEIGHT; j++){
-            environmentState[j][MAP_WIDTH-1] = MAP_FIELD.BORDER;
-            environmentState[j][0] = MAP_FIELD.BORDER;
-        }
-    }
-
-    private void generateRandomPrizes(int numberOfPrizes) {
-        for (int i = 0; i < numberOfPrizes; i++) {
-
-            int randomX = ThreadLocalRandom.current().nextInt(1, MAP_WIDTH - 1);
-            int randomY = ThreadLocalRandom.current().nextInt(1, MAP_HEIGHT - 1);
-
-            if(environmentState[randomX][randomY] != MAP_FIELD.EMPTY){
-                i--;
-                continue;
-            }
-
-            prizeList.add(new Square(randomX, randomY, 1, 1));
-
-            environmentState[randomX][randomY] = MAP_FIELD.PRIZE;
-        }
-
-    }
-
-    private void generateRandomBoxes(int numberOfBoxes) {
-//        RANDOM MAP
-        for (int i = 0; i < numberOfBoxes; i++) {
-            int randomWidth = ThreadLocalRandom.current().nextInt(1, 5);
-            int randomHeight = ThreadLocalRandom.current().nextInt(1, 5);
-
-            int randomX = ThreadLocalRandom.current().nextInt(1, MAP_WIDTH - randomWidth);
-            int randomY = ThreadLocalRandom.current().nextInt(1, MAP_HEIGHT - randomHeight);
-
-            for (int j = 0; j < randomWidth; j++) {
-                for (int k = 0; k < randomHeight; k++) {
-                    if (environmentState[j + randomX][k + randomY] != MAP_FIELD.EMPTY) {
-                        i--;
-                        continue;
-                    }
-                }
-            }
-
-            obstacleList.add(new Square(randomX, randomY, randomWidth, randomHeight));
-
-            for (int j = 0; j < randomWidth; j++) {
-                for (int k = 0; k < randomHeight; k++) {
-                    environmentState[j + randomX][k + randomY] = MAP_FIELD.OBSTACLE;
-                }
-            }
-        }
-    }
-
-
-
 }

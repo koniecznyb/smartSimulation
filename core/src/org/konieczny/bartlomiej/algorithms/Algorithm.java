@@ -71,4 +71,9 @@ public interface Algorithm {
      */
     void slowDown();
 
+    int getTimeStep();
+
+    void reset();
+
+    void setEpsilon(float epsilon);
 }

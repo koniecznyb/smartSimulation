@@ -1,14 +1,52 @@
+/**
+ Copyright (c) 2015, Bartłomiej Konieczny
+ All rights reserved.
+
+ Redistribution and use in source and binary forms, with or without
+ modification, are permitted provided that the following conditions are met:
+ 1. Redistributions of source code must retain the above copyright
+ notice, this list of conditions and the following disclaimer.
+ 2. Redistributions in binary form must reproduce the above copyright
+ notice, this list of conditions and the following disclaimer in the
+ documentation and/or other materials provided with the distribution.
+ 3. All advertising materials mentioning features or use of this software
+ must display the following acknowledgement:
+ This product includes software developed by the Bartłomiej Konieczny.
+ 4. Neither the name of the Bartłomiej Konieczny nor the
+ names of its contributors may be used to endorse or promote products
+ derived from this software without specific prior written permission.
+
+ THIS SOFTWARE IS PROVIDED BY Bartłomiej Konieczny ''AS IS'' AND ANY
+ EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ DISCLAIMED. IN NO EVENT SHALL Bartłomiej Konieczny BE LIABLE FOR ANY
+ DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
 package org.redi;
 
 import lombok.Getter;
-import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
- * Created by redi on 2015-10-17.
+ * <p>
+ *     Singleton class representing the environment in which agent is operating.
+ *     Definies size of the map, current state of the environment, list of obstacles, list of prizes and
+ *     all possible states, that can occur to an agent.
+ * </p>
+ * <p>
+ *     Contains the X and Y coordinates of the goal object.
+ * </p>
+ * <p>
+ *     Created by Bartłomiej Konieczny on 2015-10-17.
+ * </p>
  */
 public class Environment {
 
@@ -281,6 +319,75 @@ public class Environment {
                 {MAP_FIELD.EMPTY,null,MAP_FIELD.BORDER},
                 {null,MAP_FIELD.OBSTACLE,null}
         }));
+
+//        nagroda, 1 granica
+
+        possibleStatesList.add(State.with(new Environment.MAP_FIELD[][]{
+                {null,MAP_FIELD.BORDER,null},
+                {MAP_FIELD.EMPTY,null,MAP_FIELD.PRIZE},
+                {null,MAP_FIELD.EMPTY,null}
+        }));
+
+        possibleStatesList.add(State.with(new Environment.MAP_FIELD[][]{
+                {null,MAP_FIELD.EMPTY,null},
+                {MAP_FIELD.EMPTY,null,MAP_FIELD.PRIZE},
+                {null,MAP_FIELD.BORDER,null}
+        }));
+
+        possibleStatesList.add(State.with(new Environment.MAP_FIELD[][]{
+                {null,MAP_FIELD.EMPTY,null},
+                {MAP_FIELD.BORDER,null,MAP_FIELD.PRIZE},
+                {null,MAP_FIELD.EMPTY,null}
+        }));
+
+        possibleStatesList.add(State.with(new Environment.MAP_FIELD[][]{
+                {null,MAP_FIELD.PRIZE,null},
+                {MAP_FIELD.EMPTY,null,MAP_FIELD.BORDER},
+                {null,MAP_FIELD.EMPTY,null}
+        }));
+        possibleStatesList.add(State.with(new Environment.MAP_FIELD[][]{
+                {null,MAP_FIELD.PRIZE,null},
+                {MAP_FIELD.EMPTY,null,MAP_FIELD.EMPTY},
+                {null,MAP_FIELD.BORDER,null}
+        }));
+        possibleStatesList.add(State.with(new Environment.MAP_FIELD[][]{
+                {null,MAP_FIELD.PRIZE,null},
+                {MAP_FIELD.BORDER,null,MAP_FIELD.EMPTY},
+                {null,MAP_FIELD.EMPTY,null}
+        }));
+
+        possibleStatesList.add(State.with(new Environment.MAP_FIELD[][]{
+                {null,MAP_FIELD.BORDER,null},
+                {MAP_FIELD.PRIZE,null,MAP_FIELD.EMPTY},
+                {null,MAP_FIELD.EMPTY,null}
+        }));
+        possibleStatesList.add(State.with(new Environment.MAP_FIELD[][]{
+                {null,MAP_FIELD.EMPTY,null},
+                {MAP_FIELD.PRIZE,null,MAP_FIELD.BORDER},
+                {null,MAP_FIELD.EMPTY,null}
+        }));
+        possibleStatesList.add(State.with(new Environment.MAP_FIELD[][]{
+                {null,MAP_FIELD.EMPTY,null},
+                {MAP_FIELD.PRIZE,null,MAP_FIELD.EMPTY},
+                {null,MAP_FIELD.BORDER,null}
+        }));
+
+        possibleStatesList.add(State.with(new Environment.MAP_FIELD[][]{
+                {null,MAP_FIELD.EMPTY,null},
+                {MAP_FIELD.BORDER,null,MAP_FIELD.EMPTY},
+                {null,MAP_FIELD.PRIZE,null}
+        }));
+        possibleStatesList.add(State.with(new Environment.MAP_FIELD[][]{
+                {null,MAP_FIELD.BORDER,null},
+                {MAP_FIELD.EMPTY,null,MAP_FIELD.EMPTY},
+                {null,MAP_FIELD.PRIZE,null}
+        }));
+        possibleStatesList.add(State.with(new Environment.MAP_FIELD[][]{
+                {null,MAP_FIELD.EMPTY,null},
+                {MAP_FIELD.EMPTY,null,MAP_FIELD.BORDER},
+                {null,MAP_FIELD.PRIZE,null}
+        }));
+
 
     }
 

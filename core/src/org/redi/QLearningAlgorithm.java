@@ -1,3 +1,32 @@
+/**
+ Copyright (c) 2015, Bartłomiej Konieczny
+ All rights reserved.
+
+ Redistribution and use in source and binary forms, with or without
+ modification, are permitted provided that the following conditions are met:
+ 1. Redistributions of source code must retain the above copyright
+ notice, this list of conditions and the following disclaimer.
+ 2. Redistributions in binary form must reproduce the above copyright
+ notice, this list of conditions and the following disclaimer in the
+ documentation and/or other materials provided with the distribution.
+ 3. All advertising materials mentioning features or use of this software
+ must display the following acknowledgement:
+ This product includes software developed by the Bartłomiej Konieczny.
+ 4. Neither the name of the Bartłomiej Konieczny nor the
+ names of its contributors may be used to endorse or promote products
+ derived from this software without specific prior written permission.
+
+ THIS SOFTWARE IS PROVIDED BY Bartłomiej Konieczny ''AS IS'' AND ANY
+ EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ DISCLAIMED. IN NO EVENT SHALL Bartłomiej Konieczny BE LIABLE FOR ANY
+ DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
 package org.redi;
 
 import com.badlogic.gdx.Gdx;
@@ -13,9 +42,9 @@ import java.util.function.Predicate;
 public class QLearningAlgorithm implements Algorithm {
 
     private int timeStep = 0, reward = 0;
-    private Map<State, Map<Action, Integer>> qValues;
+    private Map<State, Map<Action, Float>> qValues;
 
-    double gamma = 0.95;
+    float gamma = 0.95f;
     float epsilon = 0.2f;
 
     private int threshold = 1;
@@ -52,7 +81,7 @@ public class QLearningAlgorithm implements Algorithm {
                 double Qmax = 0;
                 Action bestAction = Action.MOVE_UP;
 
-                for(Map.Entry<Action, Integer> actionEntry : qValues.get(currentState).entrySet()){
+                for(Map.Entry<Action, Float> actionEntry : qValues.get(currentState).entrySet()){
                     if(actionEntry.getValue() >= Qmax){
                         Qmax = actionEntry.getValue();
                         bestAction = actionEntry.getKey();
@@ -71,22 +100,22 @@ public class QLearningAlgorithm implements Algorithm {
             nextState = State.considerNextState(currentAction, agent.getX(), agent.getY());
 
 //            find qMax for nextState
-            double Qmax = 0;
+            float Qmax = 0;
 
-            for(Map.Entry<Action, Integer> actionEntry : qValues.get(nextState).entrySet()){
+            for(Map.Entry<Action, Float> actionEntry : qValues.get(nextState).entrySet()){
                 if(actionEntry.getValue() > Qmax){
                     Qmax = actionEntry.getValue();
                 }
             }
 
 //            get the reward for the (current state, current action, next state) tuple
-            double reward = agent.returnReward(currentState, currentAction, agent.getX(), agent.getY());
+            float reward = agent.returnReward(currentState, currentAction, agent.getX(), agent.getY());
 
 
 //            update Q value
-            double currentStateQValue = qValues.get(currentState).get(currentAction);
-            double qValue = currentStateQValue + gamma*(reward + gamma*Qmax - currentStateQValue);
-            qValues.get(currentState).put(currentAction, (int) qValue);
+            float currentStateQValue = qValues.get(currentState).get(currentAction);
+            float qValue = currentStateQValue + gamma*(reward + gamma*Qmax - currentStateQValue);
+            qValues.get(currentState).put(currentAction, qValue);
 
 
 //            set current state to next state, NOT NEEDED
@@ -94,6 +123,11 @@ public class QLearningAlgorithm implements Algorithm {
 
             agent.move(currentAction, Gdx.graphics.getDeltaTime());
             timeStep++;
+
+            if(agent.getX() == Environment.getGoalX() && agent.getY() == Environment.getGoalY()){
+                System.out.println("Goal state achevied with " + reward + "points and " + timeStep );
+            }
+
             return reward;
         }
 
@@ -166,11 +200,11 @@ public class QLearningAlgorithm implements Algorithm {
 //    }
 
     @Override
-    public Map<State, Map<Action, Integer>> initializeQValuesArray() {
-        Map<Action, Integer> actionValues = new HashMap<>();
+    public Map<State, Map<Action, Float>> initializeQValuesArray() {
+        Map<Action, Float> actionValues = new HashMap<>();
         List<Action> possibleActions = Arrays.asList(Action.MOVE_DOWN, Action.MOVE_LEFT, Action.MOVE_RIGHT, Action.MOVE_UP);
 
-        possibleActions.stream().forEach(x -> actionValues.put(x, 0));
+        possibleActions.stream().forEach(x -> actionValues.put(x, 0f));
         qValues = new TreeMap<>();
         Environment.getPossibleStatesList().stream()
                 .forEach(state -> qValues.put(state, new HashMap<>(actionValues)));
@@ -180,7 +214,7 @@ public class QLearningAlgorithm implements Algorithm {
                 .filter(findBorderState)
                 .forEach(state -> {
                     Environment.MAP_FIELD [][] agentSurroundings = state.getAgentSurroundings();
-                    Map<Action, Integer> modifiedMap = new HashMap<>(actionValues);
+                    Map<Action, Float> modifiedMap = new HashMap<>(actionValues);
 
 //                    left
                     if(agentSurroundings[0][1] == Environment.MAP_FIELD.BORDER){

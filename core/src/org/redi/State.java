@@ -39,6 +39,10 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 /**
+ * <p>
+ *     Class representing state in a simulation.
+ *     A state is an abstract representation of the environment around an {@link Agent}.
+ * </p>
  * Created by Bartłomiej Konieczny on 2015-11-15.
  */
 @Getter
@@ -59,6 +63,13 @@ public class State implements Comparable<State>, Serializable {
         return new State(agentSurroundings);
     }
 
+    /**
+     * Returns the state from a list of possible states {@link Environment#getPossibleStatesList()}, based on the surroundings of an {@link Agent}.
+     * @param agentPositionX X coordinate of an agent
+     * @param agentPositionY Y coordinate of an agent
+     * @param currentMapState current state of the environment
+     * @return identified state
+     */
     public static State identifyState(int agentPositionX, int agentPositionY, Environment.MAP_FIELD [][] currentMapState){
         Environment.MAP_FIELD [][] agentSurroundings =  getAgentSurroundings(agentPositionX, agentPositionY, currentMapState);
         List<State> possibleStates = Environment.getPossibleStatesList();
@@ -75,6 +86,13 @@ public class State implements Comparable<State>, Serializable {
        return identifiedState;
     }
 
+    /**
+     * Allows to predict in what {@link State} will an agent be, after executing specified {@link Action}.
+     * @param action action to be executed
+     * @param agentX X coordinate of an agent
+     * @param agentY Y coordinate of an agent
+     * @return considered new state
+     */
     public static State considerNextState(Action action, int agentX, int agentY){
         int newX = agentX;
         int newY = agentY;
@@ -101,6 +119,13 @@ public class State implements Comparable<State>, Serializable {
     }
 
 
+    /**
+     * Returns the surroundings of an {@link Agent} based on its position and current map state - {@link Environment#environmentState}.
+     * @param agentPositionX X coordinate of an agent
+     * @param agentPositionY Y coordinate of an agent
+     * @param currentMapState current map state
+     * @return surroundings of an agent in form: int [2][2]
+     */
     private static Environment.MAP_FIELD[][] getAgentSurroundings(int agentPositionX, int agentPositionY, Environment.MAP_FIELD[][] currentMapState) {
 
         Environment.MAP_FIELD [][] agentSurroundings = new Environment.MAP_FIELD[3][3];

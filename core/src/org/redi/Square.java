@@ -36,6 +36,9 @@ import lombok.ToString;
 import static com.badlogic.gdx.math.MathUtils.sin;
 
 /**
+ * <p>
+ *     Basic square class designed for LibGdx rendering.
+ * </p>
  * Created by Bartłomiej Konieczny on 2015-10-17.
  */
 @ToString
@@ -51,12 +54,20 @@ public class Square {
         this.height = height;
     }
 
+    /**
+     * Draws a square.
+     * @param shapeRenderer renderer to draw to
+     */
     public void draw(final ShapeRenderer shapeRenderer){
 
         shapeRenderer.rect(x , y, width, height);
 
     }
 
+    /**
+     * Moves all squares on the screen.
+     * @param deltaTime time since last frame update
+     */
     public void applyMovement(float deltaTime) {
 // TODO: 2015-11-08 Movement of the environment
 

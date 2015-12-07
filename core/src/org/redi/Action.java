@@ -36,6 +36,10 @@ import java.util.List;
 import java.util.Random;
 
 /**
+ * <p>
+ *     Represents possible actions an agent can execute in specified state.
+ * </p>
+ *
  * Created by Bartłomiej Konieczny on 2015-10-21.
  */
 public enum Action implements Serializable{
@@ -47,6 +51,10 @@ public enum Action implements Serializable{
     private static final int SIZE = VALUES.size();
     private static final Random RANDOM = new Random();
 
+    /**
+     * Returns random action from all possible values.
+     * @return random action
+     */
     public static Action randomAction()  {
         return VALUES.get(RANDOM.nextInt(SIZE));
     }

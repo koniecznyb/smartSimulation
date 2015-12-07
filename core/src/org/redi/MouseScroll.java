@@ -34,6 +34,9 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.MathUtils;
 
 /**
+ * <p>
+ * InputProcessor implementation which enables view scrolling.
+ * </p>
  * Created by Bartłomiej Konieczny on 2015-10-04.
  */
 public class MouseScroll implements InputProcessor {

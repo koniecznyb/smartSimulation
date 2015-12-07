@@ -37,6 +37,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * <p>
+ *     Class defining an intelligent agent, that learns the environment.
+ *     Agent gains knowledge about the environment based on defined rewards he receives when executing an {@link Action}.
+ *     Rewards are pre-definied in {@link Agent#rewardValues}
+ * </p>
  * Created by Bartłomiej Konieczny on 2015-10-18.
  */
 @Getter
@@ -61,14 +66,22 @@ public class Agent {
     }
 
 
+    /**
+     * Returns the reward when executing action in state, rewards are based on the type of field that agent encounters.
+     * <p>
+     *     Bonus points when moving towards the goal.
+     * </p>
+     * @param currentState state in which action is executed
+     * @param currentAction action which is executed
+     * @param agentX X coordiante of an agent
+     * @param agentY Y coordinate of an agent
+     * @return computed reward based on field and whether moving towards the goal or not
+     */
     public float returnReward(State currentState, Action currentAction, int agentX, int agentY){
-
-//        if moving towards goal
-
-
 
         switch (currentAction){
             case MOVE_DOWN:{
+//                if moving towards goal
                 if(Environment.getGoalY() < agentY){
                     return rewardValues.get(currentState.getTop()) + 5f;
                 }
@@ -100,6 +113,10 @@ public class Agent {
     }
 
 
+    /**
+     * Draws the agent on a map.
+     * @param shapeRenderer renderer to draw to
+     */
     public void draw(final ShapeRenderer shapeRenderer) {
         shapeRenderer.rect(x, y, width, height);
     }

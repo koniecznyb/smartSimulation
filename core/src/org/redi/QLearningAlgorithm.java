@@ -37,6 +37,16 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.Predicate;
 
 /**
+ * <p>
+ *     Q-Learning algorithm, implementation of reinforcement algorithm class.
+ *     Q-learning is a model-free reinforcement learning technique, it works by learning an action-value function that
+ *     ultimately gives the expected utility of taking a given action in a given state and
+ *     following the optimal policy thereafter. A policy is a rule that the agent follows in selecting actions,
+ *     given the state it is in.
+ * </p>
+ * <p>
+ *     Off-policy algorithm.
+ * </p>
  * Created by Bartłomiej Konieczny on 2015-11-30.
  */
 public class QLearningAlgorithm implements Algorithm {

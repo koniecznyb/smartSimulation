@@ -41,6 +41,9 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 import java.util.Map;
 
+/**
+ * Main class which start a simulation using LibGdx framework.
+ */
 public class GdxGameClass extends ApplicationAdapter {
 
     private final int MAP_WIDTH = 50, MAP_HEIGHT = 50;
@@ -139,6 +142,11 @@ public class GdxGameClass extends ApplicationAdapter {
 
     }
 
+
+    /**
+     * Draws current cumulative reward that agent has received.
+     * @param reward
+     */
     private void drawFitness(double reward){
         batch.begin();
         font.setColor(Color.WHITE);
@@ -147,6 +155,11 @@ public class GdxGameClass extends ApplicationAdapter {
 
     }
 
+    /**
+     * Helper method for drawing a border of an map
+     * @param map_width width of a box(map)
+     * @param map_height height of a box(map)
+     */
     private void drawBox(int map_width, int map_height) {
         shapeRenderer.setColor(Color.GRAY);
         shapeRenderer.begin(ShapeRenderer.ShapeType.Line);

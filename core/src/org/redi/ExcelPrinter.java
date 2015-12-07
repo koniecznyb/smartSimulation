@@ -42,6 +42,9 @@ import java.util.Map;
 import java.util.Set;
 
 /**
+ * <p>
+ * Utility class which prints data to a calculation sheet.
+ * </p>
  * Created by Bartłomiej Konieczny on 2015-11-30.
  */
 public class ExcelPrinter {
@@ -51,6 +54,10 @@ public class ExcelPrinter {
 
     static int rownum = 0;
 
+    /**
+     * Saves a simulation data to new sheet.
+     * @param id id of a sheet
+     */
     public static void createNewRunData(int id){
         //Blank workbook
         workbook = new XSSFWorkbook();
@@ -60,6 +67,11 @@ public class ExcelPrinter {
 
     }
 
+    /**
+     * Creates row with all definied states.
+     * @see State
+     * @param states definied states
+     */
     private static void createStateRow(Set<State> states) {
         //to enable newlines you need set a cell styles with wrap=true
         CellStyle cs = workbook.createCellStyle();
@@ -78,6 +90,11 @@ public class ExcelPrinter {
         }
     }
 
+
+    /**
+     * Saves Q-Value array.
+     * @param qValues qValue array to save
+     */
     public static void saveData(Map<State, Map<Action, Float>> qValues){
 
         createStateRow(qValues.keySet());
@@ -123,6 +140,9 @@ public class ExcelPrinter {
         saveToFile();
     }
 
+    /**
+     * Saves to an file in current filesystem.
+     */
     private static void saveToFile() {
         try {
             //Write the workbook in file system

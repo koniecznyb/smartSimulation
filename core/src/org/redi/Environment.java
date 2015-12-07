@@ -47,6 +47,9 @@ import java.util.concurrent.ThreadLocalRandom;
  * <p>
  *     Created by Bartłomiej Konieczny on 2015-10-17.
  * </p>
+ *      @see Agent
+ *     @see State
+ *     @see Action
  */
 public class Environment {
 

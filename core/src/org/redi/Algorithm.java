@@ -32,14 +32,38 @@ package org.redi;
 import java.util.Map;
 
 /**
- * Created by Bartłomiej Konieczny on 2015-11-11.
+ * <p>
+ *     General interface for reinforcement learning algorithms.
+ * </p>
+ *
+ *<p>
+ *  Created by Bartłomiej Konieczny on 2015-11-11.
+ *</p>
  */
 public interface Algorithm {
 
+    /**
+     * Executes one step of an algorithm.
+     * @param agent intelligent {@link Agent}
+     * @param renderTimer time elapsed since start of simulation rendering
+     * @return reward for each step of an simulation
+     */
     double run(final Agent agent, int renderTimer);
+
+    /**
+     * Creates the Q-Values array with aribrary values (defaults to zeros), based on the {@link Environment}
+     * @return initialized array
+     */
     Map<State, Map<Action, Float>> initializeQValuesArray();
 
+    /**
+     * Speeds up the execution of algorithm.
+     */
     void speedUp();
+
+    /**
+     * Slows down the execution of algorithm.
+     */
     void slowDown();
 
 }

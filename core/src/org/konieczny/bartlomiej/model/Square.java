@@ -27,70 +27,46 @@
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.redi;
+package org.konieczny.bartlomiej.model;
 
-import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import lombok.ToString;
 
 /**
  * <p>
- * InputProcessor implementation which enables view scrolling.
+ *     Basic square class designed for LibGdx rendering.
  * </p>
- * Created by Bartłomiej Konieczny on 2015-10-04.
+ * Created by Bartłomiej Konieczny on 2015-10-17.
  */
-public class MouseScroll implements InputProcessor {
+@ToString
+public class Square {
 
-    private final OrthographicCamera camera;
+    private int x,y;
+    private int width, height;
 
-    public MouseScroll(OrthographicCamera camera) {
-        this.camera = camera;
+    public Square(int x, int y, int width, int height) {
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
     }
 
-    @Override
-    public boolean keyDown(int keycode) {
-        return false;
+    /**
+     * Draws a square.
+     * @param shapeRenderer renderer to draw to
+     */
+    public void draw(final ShapeRenderer shapeRenderer){
+
+        shapeRenderer.rect(x , y, width, height);
+
     }
 
-    @Override
-    public boolean keyUp(int keycode) {
-        return false;
-    }
+    /**
+     * Moves all squares on the screen.
+     * @param deltaTime time since last frame update
+     */
+    public void applyMovement(float deltaTime) {
+// TODO: 2015-11-08 Movement of the environment
 
-    @Override
-    public boolean keyTyped(char character) {
-        return false;
-    }
-
-    @Override
-    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        return false;
-    }
-
-    @Override
-    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        return false;
-    }
-
-    @Override
-    public boolean touchDragged(int screenX, int screenY, int pointer) {
-        return false;
-    }
-
-    @Override
-    public boolean mouseMoved(int screenX, int screenY) {
-//        System.out.println("X: " + Gdx.input.getX() + ", Y: " + Gdx.input.getY());
-        return true;
-    }
-
-    @Override
-    public boolean scrolled(int amount) {
-        if(amount>0){
-            camera.zoom = MathUtils.clamp(camera.zoom + 0.5f, 1.0f, 10.0f);
-        }
-        else if(amount<0){
-            camera.zoom = MathUtils.clamp(camera.zoom - 0.5f, 1.0f, 10.0f);
-        }
-        return true;
     }
 }

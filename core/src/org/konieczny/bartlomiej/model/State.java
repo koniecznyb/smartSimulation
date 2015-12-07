@@ -27,11 +27,12 @@
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.redi;
+package org.konieczny.bartlomiej.model;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import org.konieczny.bartlomiej.simulation.Environment;
 
 import java.io.Serializable;
 import java.util.Arrays;
@@ -52,7 +53,7 @@ public class State implements Comparable<State>, Serializable {
 
     private static int statesID = 0;
     public int stateID = statesID++;
-    private Environment.MAP_FIELD [][] agentSurroundings;
+    private Environment.MAP_FIELD[][] agentSurroundings;
 
     private State(Environment.MAP_FIELD[][] agentSurroundings) {
         this.agentSurroundings = agentSurroundings;

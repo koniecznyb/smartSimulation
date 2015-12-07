@@ -27,7 +27,7 @@
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.redi;
+package org.konieczny.bartlomiej.libgdx;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
@@ -38,6 +38,13 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import org.konieczny.bartlomiej.simulation.Environment;
+import org.konieczny.bartlomiej.helpers.ExcelPrinter;
+import org.konieczny.bartlomiej.algorithms.Algorithm;
+import org.konieczny.bartlomiej.algorithms.QLearningAlgorithm;
+import org.konieczny.bartlomiej.model.Action;
+import org.konieczny.bartlomiej.model.Agent;
+import org.konieczny.bartlomiej.model.State;
 
 import java.util.Map;
 

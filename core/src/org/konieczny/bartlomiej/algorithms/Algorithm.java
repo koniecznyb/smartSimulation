@@ -27,35 +27,48 @@
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.redi;
+package org.konieczny.bartlomiej.algorithms;
 
-import java.io.Serializable;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
+import org.konieczny.bartlomiej.model.Action;
+import org.konieczny.bartlomiej.model.Agent;
+import org.konieczny.bartlomiej.simulation.Environment;
+import org.konieczny.bartlomiej.model.State;
+
+import java.util.Map;
 
 /**
  * <p>
- *     Represents possible actions an agent can execute in specified state.
+ *     General interface for reinforcement learning algorithms.
  * </p>
  *
- * Created by Bartłomiej Konieczny on 2015-10-21.
+ *<p>
+ *  Created by Bartłomiej Konieczny on 2015-11-11.
+ *</p>
  */
-public enum Action implements Serializable{
-
-    MOVE_UP, MOVE_DOWN, MOVE_RIGHT, MOVE_LEFT;
-
-    private static final List<Action> VALUES =
-            Collections.unmodifiableList(Arrays.asList(values()));
-    private static final int SIZE = VALUES.size();
-    private static final Random RANDOM = new Random();
+public interface Algorithm {
 
     /**
-     * Returns random action from all possible values.
-     * @return random action
+     * Executes one step of an algorithm.
+     * @param agent intelligent {@link Agent}
+     * @param renderTimer time elapsed since start of simulation rendering
+     * @return reward for each step of an simulation
      */
-    public static Action randomAction()  {
-        return VALUES.get(RANDOM.nextInt(SIZE));
-    }
+    double run(final Agent agent, int renderTimer);
+
+    /**
+     * Creates the Q-Values array with aribrary values (defaults to zeros), based on the {@link Environment}
+     * @return initialized array
+     */
+    Map<State, Map<Action, Float>> initializeQValuesArray();
+
+    /**
+     * Speeds up the execution of algorithm.
+     */
+    void speedUp();
+
+    /**
+     * Slows down the execution of algorithm.
+     */
+    void slowDown();
+
 }

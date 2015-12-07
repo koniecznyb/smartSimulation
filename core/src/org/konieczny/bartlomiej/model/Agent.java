@@ -27,11 +27,12 @@
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.redi;
+package org.konieczny.bartlomiej.model;
 
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import lombok.Getter;
 import lombok.Setter;
+import org.konieczny.bartlomiej.simulation.Environment;
 
 import java.util.HashMap;
 import java.util.Map;

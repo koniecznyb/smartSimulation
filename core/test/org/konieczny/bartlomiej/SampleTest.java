@@ -1,7 +1,7 @@
-package org.redi;
+package org.konieczny.bartlomiej;
 
-import static org.junit.Assert.*;
 import org.junit.*;
+import org.konieczny.bartlomiej.simulation.Environment;
 
 import java.util.Arrays;
 

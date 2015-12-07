@@ -27,43 +27,70 @@
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.redi;
+package org.konieczny.bartlomiej.libgdx;
 
-import java.util.Map;
+import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.math.MathUtils;
 
 /**
  * <p>
- *     General interface for reinforcement learning algorithms.
+ * InputProcessor implementation which enables view scrolling.
  * </p>
- *
- *<p>
- *  Created by Bartłomiej Konieczny on 2015-11-11.
- *</p>
+ * Created by Bartłomiej Konieczny on 2015-10-04.
  */
-public interface Algorithm {
+public class MouseScroll implements InputProcessor {
 
-    /**
-     * Executes one step of an algorithm.
-     * @param agent intelligent {@link Agent}
-     * @param renderTimer time elapsed since start of simulation rendering
-     * @return reward for each step of an simulation
-     */
-    double run(final Agent agent, int renderTimer);
+    private final OrthographicCamera camera;
 
-    /**
-     * Creates the Q-Values array with aribrary values (defaults to zeros), based on the {@link Environment}
-     * @return initialized array
-     */
-    Map<State, Map<Action, Float>> initializeQValuesArray();
+    public MouseScroll(OrthographicCamera camera) {
+        this.camera = camera;
+    }
 
-    /**
-     * Speeds up the execution of algorithm.
-     */
-    void speedUp();
+    @Override
+    public boolean keyDown(int keycode) {
+        return false;
+    }
 
-    /**
-     * Slows down the execution of algorithm.
-     */
-    void slowDown();
+    @Override
+    public boolean keyUp(int keycode) {
+        return false;
+    }
 
+    @Override
+    public boolean keyTyped(char character) {
+        return false;
+    }
+
+    @Override
+    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+        return false;
+    }
+
+    @Override
+    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+        return false;
+    }
+
+    @Override
+    public boolean touchDragged(int screenX, int screenY, int pointer) {
+        return false;
+    }
+
+    @Override
+    public boolean mouseMoved(int screenX, int screenY) {
+//        System.out.println("X: " + Gdx.input.getX() + ", Y: " + Gdx.input.getY());
+        return true;
+    }
+
+    @Override
+    public boolean scrolled(int amount) {
+        if(amount>0){
+            camera.zoom = MathUtils.clamp(camera.zoom + 0.5f, 1.0f, 10.0f);
+        }
+        else if(amount<0){
+            camera.zoom = MathUtils.clamp(camera.zoom - 0.5f, 1.0f, 10.0f);
+        }
+        return true;
+    }
 }

@@ -27,49 +27,35 @@
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.redi;
+package org.konieczny.bartlomiej.model;
 
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
-import lombok.ToString;
-
-import static com.badlogic.gdx.math.MathUtils.sin;
+import java.io.Serializable;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
 
 /**
  * <p>
- *     Basic square class designed for LibGdx rendering.
+ *     Represents possible actions an agent can execute in specified state.
  * </p>
- * Created by Bartłomiej Konieczny on 2015-10-17.
+ *
+ * Created by Bartłomiej Konieczny on 2015-10-21.
  */
-@ToString
-public class Square {
+public enum Action implements Serializable{
 
-    private int x,y;
-    private int width, height;
+    MOVE_UP, MOVE_DOWN, MOVE_RIGHT, MOVE_LEFT;
 
-    public Square(int x, int y, int width, int height) {
-        this.x = x;
-        this.y = y;
-        this.width = width;
-        this.height = height;
-    }
+    private static final List<Action> VALUES =
+            Collections.unmodifiableList(Arrays.asList(values()));
+    private static final int SIZE = VALUES.size();
+    private static final Random RANDOM = new Random();
 
     /**
-     * Draws a square.
-     * @param shapeRenderer renderer to draw to
+     * Returns random action from all possible values.
+     * @return random action
      */
-    public void draw(final ShapeRenderer shapeRenderer){
-
-        shapeRenderer.rect(x , y, width, height);
-
-    }
-
-    /**
-     * Moves all squares on the screen.
-     * @param deltaTime time since last frame update
-     */
-    public void applyMovement(float deltaTime) {
-// TODO: 2015-11-08 Movement of the environment
-
+    public static Action randomAction()  {
+        return VALUES.get(RANDOM.nextInt(SIZE));
     }
 }

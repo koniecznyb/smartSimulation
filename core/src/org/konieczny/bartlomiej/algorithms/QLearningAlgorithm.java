@@ -27,10 +27,14 @@
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.redi;
+package org.konieczny.bartlomiej.algorithms;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
+import org.konieczny.bartlomiej.model.Action;
+import org.konieczny.bartlomiej.model.Agent;
+import org.konieczny.bartlomiej.simulation.Environment;
+import org.konieczny.bartlomiej.model.State;
 
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;

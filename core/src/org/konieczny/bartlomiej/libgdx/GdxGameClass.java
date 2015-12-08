@@ -115,8 +115,8 @@ public class GdxGameClass extends ApplicationAdapter {
 
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.setColor(Color.RED);
-        environment.getObstacleList().stream().forEach(x -> x.draw(shapeRenderer));
         environment.getObstacleList().stream().forEach(x -> x.applyMovement(Gdx.graphics.getDeltaTime()));
+        environment.getObstacleList().stream().forEach(x -> x.draw(shapeRenderer));
         shapeRenderer.end();
 
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);

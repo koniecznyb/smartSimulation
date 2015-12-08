@@ -69,6 +69,10 @@ public class Environment {
         this.environmentState = environmentState;
     }
 
+    /**
+     * Gets instance of singleton Environment variable;
+     * @return singleton Environment variable
+     */
     public static Environment getInstance(){
         if(instance == null) {
             instance = new Environment(new MAP_FIELD[MAP_WIDTH][MAP_HEIGHT]);
@@ -92,6 +96,9 @@ public class Environment {
     }
 
 
+    /**
+     * Initializes the map with empty fields.
+     */
     public void initializeMap() {
 
         for(int i=0; i<MAP_WIDTH; i++){
@@ -101,11 +108,14 @@ public class Environment {
         }
     }
 
+    /**
+     * Populates the environment with obstacles and prizes.
+     */
     public void populateEnvironment(){
-        spawnBox(20, 10, 30, 5);
-        spawnBox(10, 20, 30, 5);
-        spawnBox(0, 30, 30, 5);
-        spawnBox(20, 40, 30, 2);
+        spawnBox(20, 10, 25, 5);
+        spawnBox(10, 20, 25, 5);
+        spawnBox(0, 30, 25, 5);
+        spawnBox(20, 40, 25, 2);
         spawnPrize(goalX, goalY);
         generateBorders();
 //        generateRandomBoxes(NUMBER_OF_BOXES);
@@ -113,11 +123,23 @@ public class Environment {
 
     }
 
+    /**
+     * Spawns one prize on given coordinates.
+     * @param x x coordinate of a prize
+     * @param y y coordinate of a prize
+     */
     private void spawnPrize(int x, int y) {
         prizeList.add(new Square(x, y, 1, 1));
         environmentState[x][y] = MAP_FIELD.PRIZE;
     }
 
+    /**
+     * Spawns box on given coordinates with specific width and height.
+     * @param x x coordinate of an obstacle
+     * @param y y coordinate of an obstacle
+     * @param width width of an obstacle
+     * @param height height of an obstacle
+     */
     private void spawnBox(int x, int y, int width, int height){
         obstacleList.add(new Square(x, y, width, height));
 
@@ -129,6 +151,9 @@ public class Environment {
     }
 
 
+    /**
+     * Generates the rectangle that simulates map borders.
+     */
     private void generateBorders() {
         for(int i=0; i<MAP_WIDTH; i++){
             environmentState[0][i] = MAP_FIELD.BORDER;
@@ -140,6 +165,10 @@ public class Environment {
         }
     }
 
+    /**
+     * Generates given number of random prizes.
+     * @param numberOfPrizes number of random prizes
+     */
     private void generateRandomPrizes(int numberOfPrizes) {
         for (int i = 0; i < numberOfPrizes; i++) {
 
@@ -158,6 +187,10 @@ public class Environment {
 
     }
 
+    /**
+     * Generates given number of random obstacles.
+     * @param numberOfBoxes number of random obstacles to generate
+     */
     private void generateRandomBoxes(int numberOfBoxes) {
 //        RANDOM MAP
         for (int i = 0; i < numberOfBoxes; i++) {
@@ -186,6 +219,9 @@ public class Environment {
         }
     }
 
+    /**
+     * Initializes the list of possible states.
+     */
     public void initializePossibleStatesList(){
 
 //        brak przeszkód w okolicy robota - 1 stan

@@ -44,6 +44,8 @@ public class Square {
     private int x,y;
     private int width, height;
 
+    private int timeStep = 0;
+
     public Square(int x, int y, int width, int height) {
         this.x = x;
         this.y = y;
@@ -58,7 +60,6 @@ public class Square {
     public void draw(final ShapeRenderer shapeRenderer){
 
         shapeRenderer.rect(x , y, width, height);
-
     }
 
     /**
@@ -66,7 +67,13 @@ public class Square {
      * @param deltaTime time since last frame update
      */
     public void applyMovement(float deltaTime) {
-// TODO: 2015-11-08 Movement of the environment
-
+        if(timeStep != 0) {
+            if (timeStep % 200 == 0) {
+                x -= 4;
+            } else if (timeStep % 50 == 1) {
+                x++;
+            }
+        }
+        timeStep++;
     }
 }

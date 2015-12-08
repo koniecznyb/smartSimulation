@@ -34,7 +34,7 @@ import com.badlogic.gdx.math.MathUtils;
 import lombok.Setter;
 import org.konieczny.bartlomiej.model.Action;
 import org.konieczny.bartlomiej.model.Agent;
-import org.konieczny.bartlomiej.simulation.Environment;
+import org.konieczny.bartlomiej.model.Environment;
 import org.konieczny.bartlomiej.model.State;
 
 import java.util.*;

@@ -32,7 +32,6 @@ package org.konieczny.bartlomiej.model;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
-import org.konieczny.bartlomiej.simulation.Environment;
 
 import java.io.Serializable;
 import java.util.Arrays;
@@ -65,7 +64,7 @@ public class State implements Comparable<State>, Serializable {
     }
 
     /**
-     * Returns the state from a list of possible states {@link Environment#getPossibleStatesList()}, based on the surroundings of an {@link Agent}.
+     * Returns the state from a list of possible states {@link Environment#possibleStatesList}, based on the surroundings of an {@link Agent}.
      * @param agentPositionX X coordinate of an agent
      * @param agentPositionY Y coordinate of an agent
      * @param currentMapState current state of the environment

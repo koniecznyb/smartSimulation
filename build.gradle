@@ -32,6 +32,9 @@ allprojects {
 project(":desktop") {
     apply plugin: "java"
 
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+
 
     dependencies {
         compile project(":core")
@@ -44,6 +47,9 @@ project(":desktop") {
 
 project(":core") {
     apply plugin: "java"
+
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
 
     dependencies {
         compile 'org.apache.commons:commons-lang3:3.0'

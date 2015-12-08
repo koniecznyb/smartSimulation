@@ -38,7 +38,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import org.konieczny.bartlomiej.simulation.Environment;
+import org.konieczny.bartlomiej.model.Environment;
 import org.konieczny.bartlomiej.helpers.ExcelPrinter;
 import org.konieczny.bartlomiej.algorithms.Algorithm;
 import org.konieczny.bartlomiej.algorithms.QLearningAlgorithm;
@@ -115,7 +115,7 @@ public class GdxGameClass extends ApplicationAdapter {
 
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.setColor(Color.RED);
-        environment.getObstacleList().stream().forEach(x -> x.applyMovement(Gdx.graphics.getDeltaTime()));
+//        environment.getObstacleList().stream().forEach(x -> x.applyMovement(Gdx.graphics.getDeltaTime()));
         environment.getObstacleList().stream().forEach(x -> x.draw(shapeRenderer));
         shapeRenderer.end();
 

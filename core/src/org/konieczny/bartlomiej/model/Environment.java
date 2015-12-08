@@ -27,13 +27,9 @@
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.konieczny.bartlomiej.simulation;
+package org.konieczny.bartlomiej.model;
 
 import lombok.Getter;
-import org.konieczny.bartlomiej.model.Action;
-import org.konieczny.bartlomiej.model.Agent;
-import org.konieczny.bartlomiej.model.Square;
-import org.konieczny.bartlomiej.model.State;
 
 import java.util.ArrayList;
 import java.util.List;

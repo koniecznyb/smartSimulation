@@ -31,7 +31,7 @@ package org.konieczny.bartlomiej.algorithms;
 
 import org.konieczny.bartlomiej.model.Action;
 import org.konieczny.bartlomiej.model.Agent;
-import org.konieczny.bartlomiej.simulation.Environment;
+import org.konieczny.bartlomiej.model.Environment;
 import org.konieczny.bartlomiej.model.State;
 
 import java.util.Map;

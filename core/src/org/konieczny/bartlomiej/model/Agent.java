@@ -31,8 +31,6 @@ package org.konieczny.bartlomiej.model;
 
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import lombok.Getter;
-import lombok.Setter;
-import org.konieczny.bartlomiej.simulation.Environment;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -61,9 +59,9 @@ public class Agent {
         this.x = x;
 
         rewardValues = new HashMap<>();
-        rewardValues.put(Environment.MAP_FIELD.EMPTY, -2f);
+        rewardValues.put(Environment.MAP_FIELD.EMPTY, -1f);
         rewardValues.put(Environment.MAP_FIELD.OBSTACLE, -1000f);
-        rewardValues.put(Environment.MAP_FIELD.PRIZE, 1000f);
+        rewardValues.put(Environment.MAP_FIELD.PRIZE, 10000f);
         rewardValues.put(Environment.MAP_FIELD.BORDER, -200f);
 
     }
@@ -82,7 +80,7 @@ public class Agent {
      */
     public float returnReward(State currentState, Action currentAction, int agentX, int agentY){
 
-        float prizeForRightDirection = 1f;
+        float prizeForRightDirection = 2f;
         switch (currentAction){
             case MOVE_DOWN:{
 //                if moving towards goal

@@ -14,7 +14,7 @@ allprojects {
     version = '1.0'
 
     ext {
-        appName = "smartgame"
+        appName = "smartSimulation"
         gdxVersion = '1.7.0'
         roboVMVersion = '1.8.0'
         box2DLightsVersion = '1.4'

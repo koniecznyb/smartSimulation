@@ -91,6 +91,10 @@ public class ExcelPrinter {
         }
     }
 
+    /**
+     * Saves the results of a algorithm run.
+     * @param result algorithm results
+     */
     public static void saveSimulationResult(String result){
         Row simulationRow;
         sheet.createRow(rownum++);

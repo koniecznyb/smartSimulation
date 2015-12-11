@@ -71,8 +71,15 @@ public interface Algorithm {
      */
     void slowDown();
 
+    /**
+     * Returns the number of steps the algorithm had executed
+     * @return number of steps
+     */
     int getTimeStep();
 
+    /**
+     * Resets the algorithm
+     */
     void reset();
 
     void setEpsilon(float epsilon);

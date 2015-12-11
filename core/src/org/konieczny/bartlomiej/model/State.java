@@ -59,6 +59,11 @@ public class State implements Comparable<State>, Serializable {
     }
 
 
+    /**
+     * Returns the instance of state with specified surroundings.
+     * @param agentSurroundings the type of fields adjacent to the agent
+     * @return instance of State class with specified surroundings
+     */
     public static State with(Environment.MAP_FIELD [][] agentSurroundings){
         return new State(agentSurroundings);
     }
@@ -145,6 +150,11 @@ public class State implements Comparable<State>, Serializable {
         return agentSurroundings;
     }
 
+    /**
+     * Deep copies the MAP_FIELD array.
+     * @param original array to copy
+     * @return copied array
+     */
     private static Environment.MAP_FIELD[][] deepCopy(Environment.MAP_FIELD[][] original) {
         if (original == null) {
             return null;

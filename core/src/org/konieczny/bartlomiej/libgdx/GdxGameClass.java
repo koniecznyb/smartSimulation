@@ -163,6 +163,10 @@ public class GdxGameClass extends ApplicationAdapter {
             resetSimulation(true);
     }
 
+    /**
+     * Puts the simulation in the beginning state. Sends the simulation results to the ExcelPrinter.
+     * @param finished wheter the agent reached the goal state
+     */
     private void resetSimulation(boolean finished) {
         ExcelPrinter.createNewRunData(runNumber);
         ExcelPrinter.saveData(qValues);

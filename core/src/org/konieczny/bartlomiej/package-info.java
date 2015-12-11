@@ -1,4 +1,4 @@
 /**
- * base package for smartSimulation project.
+ * Base package for smartSimulation project.
  */
 package org.konieczny.bartlomiej;

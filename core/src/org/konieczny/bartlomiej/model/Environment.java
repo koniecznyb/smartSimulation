@@ -76,6 +76,10 @@ public class Environment {
         return instance;
     }
 
+    /**
+     * Enum representing the type of field on the map.
+     * Depending on the type of the environment agent receives different rewards for his actions.
+     */
     public enum MAP_FIELD {
 
         EMPTY(0), OBSTACLE(1), PRIZE(2), BORDER(3);

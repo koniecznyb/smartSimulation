@@ -67,6 +67,7 @@ public class QLearningAlgorithm implements Algorithm {
     private int threshold = 1;
     private int rate = 1;
 
+    @Override
     public void slowDown(){
         threshold += rate;
         threshold = MathUtils.clamp(threshold, 1, 1000);
@@ -82,6 +83,7 @@ public class QLearningAlgorithm implements Algorithm {
         timeStep = 0;
     }
 
+    @Override
     public void speedUp(){
         threshold -= rate;
         threshold = MathUtils.clamp(threshold, 1, 1000);

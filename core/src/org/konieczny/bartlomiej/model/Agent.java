@@ -142,6 +142,10 @@ public class Agent {
         }
     }
 
+    /**
+     * Resets the agent back to the goal state
+     * @return agent instance
+     */
     public static Agent reset() {
         if(agent == null){
             agent =  new Agent(47, 2);

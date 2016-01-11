@@ -60,8 +60,8 @@ public class QLearningAlgorithm implements Algorithm {
     private int reward = 0;
     private Map<State, Map<Action, Float>> qValues;
 
-    float discountFactor = 1f;
-    float learningRate = 1f;
+    float discountFactor = 0.7f;
+    float learningRate = 0.6f;
     @Setter float epsilon = 0.2f;
 
     private int threshold = 1;
@@ -94,6 +94,12 @@ public class QLearningAlgorithm implements Algorithm {
 
         State currentState, nextState;
         Action currentAction;
+
+//        lowers discount factor after an arbitrary amount of time
+        if(renderTimer % 1000 == 0 && discountFactor > 0){
+            System.out.println("lowering discountFactor");
+            discountFactor -= 0.1d;
+        }
 
         if(renderTimer % threshold == 0){
 
@@ -150,7 +156,7 @@ public class QLearningAlgorithm implements Algorithm {
             qValues.get(currentState).put(currentAction, qValue);
 
 
-//            set current state to next state, NOT NEEDED
+//            set current state to next state
             currentState = nextState;
 
             agent.move(currentAction, Gdx.graphics.getDeltaTime());
@@ -161,71 +167,6 @@ public class QLearningAlgorithm implements Algorithm {
 
         return 0;
     }
-//    @Override
-//    public int run(Agent agent, int renderTimer) {
-//
-//        State consideredNextState;
-//        State currentState;
-//        Action considerAction;
-//
-//        if(renderTimer % threshold == 0){
-//            double d = Math.random();
-//
-//            currentState = State.identifyState(agent.getX(), agent.getY(), Environment.getInstance().getEnvironmentState());
-//            Map<Action, Integer> currentStateQValues = qValues.get(currentState);
-//            List<Action> currentlyPossibleActions = new ArrayList<>(currentStateQValues.keySet());
-//
-//    //           Select one among all possible actions for the current state
-//    //           epsilon-greedy policy takes random action once in a while
-//            if (d < epsilon){
-//                considerAction = currentlyPossibleActions.get(ThreadLocalRandom.current().nextInt(0, currentlyPossibleActions.size()));
-//
-//            }
-//            else {
-//                considerAction = currentlyPossibleActions.get(ThreadLocalRandom.current().nextInt(0, currentlyPossibleActions.size()));
-//            }
-//
-//    //            Using this possible action, consider going to the next state.
-//            consideredNextState = State.considerNextState(considerAction, agent.getX(), agent.getY());
-//            Map<Action, Integer> consideredStateQValues = qValues.get(consideredNextState);
-//            List<Action> consideredPossibleActions = new ArrayList<>(consideredStateQValues.keySet());
-//
-//            double Qmax = 0;
-//
-//    //            Get maximum Q value for this next state based on all possible actions.
-//            for(Action action : consideredPossibleActions){
-//                if(consideredStateQValues.get(action) > Qmax){
-//                    Qmax = consideredStateQValues.get(action);
-//                }
-//            }
-//
-//    //            Compute: Q(state, action) = R(state, action) + Gamma * Max[Q(next state, all actions)]
-//            int reward = agent.returnReward();
-//            double currentStateQValue = qValues.get(currentState).get(considerAction);
-//
-//            double qValue = currentStateQValue + reward + learningRate*(Qmax);
-//
-//            qValues.get(currentState).put(considerAction, (int) qValue);
-//
-//
-//    //            if (d < epsilon){
-//    ////           epsilon-greedy policy  takes random action once in a while
-//    //                nextAction = possibleActions.get(ThreadLocalRandom.current().nextInt(0, possibleActions.size()));
-//    //
-//    //            }
-//    //            else {
-//    //                nextAction = possibleActions.get(ThreadLocalRandom.current().nextInt(0, possibleActions.size()));
-//    ////                possibleActions.stream().forEach(System.out::println);
-//    //
-//    //            }
-//
-//            agent.move(considerAction, Gdx.graphics.getDeltaTime());
-//            timeStep++;
-//            return reward;
-//
-//        }
-//        return 0;
-//    }
 
     @Override
     public Map<State, Map<Action, Float>> initializeQValuesArray() {

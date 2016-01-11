@@ -50,7 +50,7 @@ public class Agent {
     private Map<Environment.MAP_FIELD, Float> rewardValues;
 
     @Getter private int x, y;
-
+    private float prizeForRightDirection;
     private int width = 1, height = 1;
     private float speedPerSecond = 1;
 
@@ -60,9 +60,10 @@ public class Agent {
 
         rewardValues = new HashMap<>();
         rewardValues.put(Environment.MAP_FIELD.EMPTY, -1f);
-        rewardValues.put(Environment.MAP_FIELD.OBSTACLE, -1000f);
-        rewardValues.put(Environment.MAP_FIELD.PRIZE, 10000f);
+        rewardValues.put(Environment.MAP_FIELD.OBSTACLE, -200f);
+        rewardValues.put(Environment.MAP_FIELD.PRIZE, 1000f);
         rewardValues.put(Environment.MAP_FIELD.BORDER, -200f);
+        prizeForRightDirection = 2f;
 
     }
 

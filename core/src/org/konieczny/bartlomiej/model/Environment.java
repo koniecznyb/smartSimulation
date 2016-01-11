@@ -112,15 +112,73 @@ public class Environment {
      * Populates the environment with obstacles and prizes.
      */
     public void populateEnvironment(){
+        spawnPrize(goalX, goalY);
+        generateBorders();
+        spawnSimpleMap2();
+//        spawnSimpleMap();
+//        generateRandomBoxes(NUMBER_OF_BOXES);
+//        generateRandomPrizes(NUMBER_OF_PRIZES);
+
+    }
+
+    private void spawnSimpleMap2() {
+        spawnBox(3, 2, 2, 1);
+        spawnBox(2, 4, 4, 1);
+        spawnBox(5, 10, 2, 1);
+        spawnBox(3, 20, 2, 3);
+        spawnBox(4, 25, 2, 1);
+        spawnBox(2, 30, 1, 1);
+        spawnBox(1, 45, 2, 1);
+
+        spawnBox(5, 7, 3, 2);
+        spawnBox(3, 15, 3, 2);
+        spawnBox(4, 23, 1, 2);
+        spawnBox(6, 35, 3, 3);
+        spawnBox(3, 30, 2, 2);
+        spawnBox(7, 11, 5, 2);
+        spawnBox(8, 45, 2, 3);
+        spawnBox(4, 23, 3, 2);
+        spawnBox(4, 39, 4, 2);
+        spawnBox(4, 42, 3, 6);
+
+        spawnBox(6, 12, 1, 4);
+        spawnBox(8, 32, 6, 4);
+        spawnBox(13, 21, 2, 1);
+        spawnBox(15, 5, 3, 2);
+
+        spawnBox(20, 11, 1, 1);
+        spawnBox(21, 21, 3, 4);
+        spawnBox(19, 31, 1, 2);
+        spawnBox(20, 41, 6, 4);
+        spawnBox(16, 16, 1, 4);
+        spawnBox(23, 3, 2, 6);
+        spawnBox(20, 38, 1, 4);
+
+        spawnBox(35, 47, 10, 2);
+        spawnBox(42, 48, 5, 1);
+//        spawnBox(28, 47, 3, 2);
+
+        spawnBox(24, 2, 6, 3);
+        spawnBox(28, 13, 2, 1);
+
+        spawnBox(32, 4, 1, 4);
+        spawnBox(32, 15, 2, 1);
+        spawnBox(32, 23, 5, 1);
+        spawnBox(32, 35, 6, 5);
+        spawnBox(32, 42, 2, 3);
+        spawnBox(32, 28, 4, 2);
+
+        spawnBox(36, 32, 1, 4);
+        spawnBox(40, 21, 6, 3);
+        spawnBox(43, 10, 2, 1);
+        spawnBox(45, 34, 3, 2);
+    }
+
+    private void spawnSimpleMap() {
         spawnBox(20, 10, 25, 5);
         spawnBox(10, 20, 25, 5);
         spawnBox(0, 30, 25, 5);
         spawnBox(20, 40, 25, 2);
-        spawnPrize(goalX, goalY);
-        generateBorders();
-//        generateRandomBoxes(NUMBER_OF_BOXES);
-//        generateRandomPrizes(NUMBER_OF_PRIZES);
-
     }
 
     /**

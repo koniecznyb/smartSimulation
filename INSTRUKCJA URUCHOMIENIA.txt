@@ -1,0 +1,9 @@
+aby uruchomiæ, wykonaæ komendê:
+
+na linuksie
+./gradlew run
+
+na windows
+gradlew.bat run
+
+wynik zapisywany w pliku data.xls w katalogu assets

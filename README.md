@@ -8,6 +8,6 @@ Run using gradle:
 
 (linux):$./gradlew run 
 
-(windows):$ gradlew.bat
+(windows):$ gradlew.bat run
 
 the result is saved in the data.xls file in assets folder
